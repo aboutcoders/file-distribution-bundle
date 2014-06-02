@@ -4,14 +4,15 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-
     <parameters>
-        <parameter key="abc_file_distribution.distributionManager.class">Abc\Service\DistributionManager</parameter>
+        <parameter key="abc_file_distribution.distributionManager.class">Abc\File\DistributionManager</parameter>
+        <parameter key="abc_file_distribution.filesystemFactory.class">Abc\File\FilesystemFactory</parameter>
     </parameters>
 
     <services>
+        <service id="abc_file_distribution.filesystemFactory" class="%abc_file_distribution.filesystemFactory.class%"></service>
         <service id="abc_file_distribution.distributionManager" class="%abc_file_distribution.distributionManager.class%">
-            <!--<argument type="service" id="service_id" />-->
+            <argument type="service" id="abc_file_distribution.filesystemFactory" />
             <!--<argument>plain_value</argument>-->
             <!--<argument>%parameter_name%</argument>-->
         </service>
