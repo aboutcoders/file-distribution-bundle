@@ -1,0 +1,33 @@
+{
+    "name": "aboutcoders/file-distribution-bundle",
+    "type": "symfony-bundle",
+    "description": "File distribution Symfony2 bundle",
+    "keywords": ["file", "bundle", "distribution"],
+    "homepage": "http://aboutcoders.com",
+    "license": "AboutCoders",
+    "authors": [
+        {
+            "name": "Wojciech Ciolko",
+            "email": "w.ciolko@gmail.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:wciolko/file-distribution.git"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "phpunit/phpunit": "~4.1",
+        "aboutcoders/file-distribution": "dev-master"
+    },
+    "require-dev": {
+        "symfony/framework-bundle": ">=2.1,<2.2-dev"
+    },
+    "autoload": {
+        "psr-0": {"Abc\\FileDistributionBundle": ""}
+    },
+    "minimum-stability": "dev",
+    "target-dir": "Abc/FileDistributionBundle"
+}
