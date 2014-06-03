@@ -2,13 +2,14 @@
 
 namespace Abc\FileDistributionBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
  * This is the class that validates and merges configuration from your app/config files
  *
- * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html#cookbook-bundles-extension-config-class}
+ * @author Wojciech Ciolko <w.ciolko@gmail.com>
  */
 class Configuration implements ConfigurationInterface
 {
@@ -18,12 +19,43 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('abc_file_distribution');
+        $rootNode    = $treeBuilder->root('abc_file_distribution');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $supportedDrivers = array('orm', 'custom');
+
+        $rootNode
+            ->children()
+            ->scalarNode('db_driver')
+            ->validate()
+            ->ifNotInArray($supportedDrivers)
+            ->thenInvalid('The driver %s is not supported. Please choose one of ' . json_encode($supportedDrivers))
+            ->end()
+            ->cannotBeOverwritten()
+            ->isRequired()
+            ->cannotBeEmpty()
+            ->end()
+            ->scalarNode('model_manager_name')->defaultNull()->end()
+            ->end();
+
+
+        $this->addLocationSection($rootNode);
 
         return $treeBuilder;
     }
+
+
+    private function addLocationSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+            ->arrayNode('location')
+            ->addDefaultsIfNotSet()
+            ->canBeUnset()
+            ->children()
+            ->scalarNode('location_manager')->defaultValue('abc_file_distribution.location_manager.default')->end()
+            ->end()
+            ->end()
+            ->end();
+    }
+
 }

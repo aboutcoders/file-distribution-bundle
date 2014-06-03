@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <mapped-superclass name="Abc\File\Location">
+        <field name="name" column="name" type="string" length="255" />
+        <field name="description" column="description" type="text" />
+        <field name="type" column="type" type="string" length="50" />
+        <field name="path" column="path" type="string" length="255" />
+        <field name="url" column="url" type="string" length="255" />
+        <field name="properties" column="properties" type="array" />
+    </mapped-superclass>
+
+</doctrine-mapping>
