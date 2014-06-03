@@ -9,12 +9,31 @@ use Abc\File\Location as BaseLocation;
  */
 class Location extends BaseLocation
 {
+    /** @var int */
+    protected $id;
     /** @var string */
     protected $path;
     /** @var string */
     protected $name;
     /** @var string */
     protected $description;
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
 
     /**
      * @return string
