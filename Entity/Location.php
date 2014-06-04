@@ -12,7 +12,7 @@ class Location extends BaseLocation
     /** @var int */
     protected $id;
     /** @var string */
-    protected $path;
+    protected $url;
     /** @var string */
     protected $name;
     /** @var string */
@@ -70,18 +70,17 @@ class Location extends BaseLocation
     /**
      * @return string
      */
-    public function getPath()
+    public function getUrl()
     {
-        return $this->path;
+        return $this->url;
     }
 
     /**
-     * @param string $path
+     * @param string $url
      */
-    public function setPath($path)
+    public function setUrl($url)
     {
-        $this->path = $path;
+        $this->url = $url;
     }
-
 
 }

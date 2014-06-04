@@ -22,7 +22,7 @@ class LocationManager extends BaseLocationManager
 
     /**
      * @param ObjectManager $om
-     * @param               $class
+     * @param string        $class
      */
     public function __construct(ObjectManager $om, $class)
     {
