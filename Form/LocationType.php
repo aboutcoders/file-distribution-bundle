@@ -88,4 +88,3 @@ class LocationType extends AbstractType
         return 'abc_filedistributionbundle_location';
     }
 }
-Form
