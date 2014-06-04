@@ -48,7 +48,7 @@ class LocationController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isValid() && !$request->isXmlHttpRequest()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
@@ -63,12 +63,12 @@ class LocationController extends Controller
     }
 
     /**
-    * Creates a form to create a Location entity.
-    *
-    * @param Location $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to create a Location entity.
+     *
+     * @param Location $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createCreateForm(Location $entity)
     {
         $form = $this->createForm(new LocationType(), $entity, array(
@@ -152,12 +152,12 @@ class LocationController extends Controller
     }
 
     /**
-    * Creates a form to edit a Location entity.
-    *
-    * @param Location $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Location entity.
+     *
+     * @param Location $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Location $entity)
     {
         $form = $this->createForm(new LocationType(), $entity, array(
@@ -242,6 +242,6 @@ class LocationController extends Controller
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
-        ;
+            ;
     }
 }
