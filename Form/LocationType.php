@@ -3,7 +3,6 @@
 namespace Abc\FileDistributionBundle\Form;
 
 use Abc\File\FilesystemType;
-use Abc\FileDistributionBundle\Form\Filesystem\EmptyPropertiesType;
 use Abc\FileDistributionBundle\Form\Provider\FtpProvider;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
