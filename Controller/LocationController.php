@@ -55,7 +55,7 @@ class LocationController extends Controller
 
             return $this->redirect($this->generateUrl('location_show', array('id' => $entity->getId())));
         }
-
+        var_dump($form->getData());
         return array(
             'entity' => $entity,
             'form'   => $form->createView(),

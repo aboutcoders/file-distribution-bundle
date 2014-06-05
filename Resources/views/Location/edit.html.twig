@@ -3,14 +3,20 @@
 {% block body -%}
     <h1>Location edit</h1>
 
-    {{ form(edit_form) }}
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('location') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    {{ form_start(edit_form) }}
+    {{ form_row(edit_form.name) }}
+    {{ form_row(edit_form.description) }}
+    {{ form_row(edit_form.path) }}
+    {{ form_row(edit_form.url) }}
+    {{ form_row(edit_form.type) }}
+    {{ form_rest(edit_form) }}
+    {{ form_end(edit_form) }}
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('location') }}">
+                Back to the list
+            </a>
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
 {% endblock %}
