@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Location edit</h1>
+    <h1>{{ 'Location edit'|trans }}</h1>
 
     {{ form_start(edit_form) }}
     {{ form_row(edit_form.name) }}
@@ -10,13 +10,14 @@
     {{ form_row(edit_form.url) }}
     {{ form_row(edit_form.type) }}
     {{ form_rest(edit_form) }}
+    <div class="form-group">
+        <div class="col-lg-offset-2 col-lg-10">
+            <a href="{{ path('location') }}" class="btn">{{ 'Cancel'|trans }}</a>
+            <button type="submit" class="btn btn-primary">{{ 'Save'|trans }}</button>
+        </div>
+    </div>
     {{ form_end(edit_form) }}
     <ul class="record_actions">
-        <li>
-            <a href="{{ path('location') }}">
-                Back to the list
-            </a>
-        </li>
         <li>{{ form(delete_form) }}</li>
     </ul>
 {% endblock %}
