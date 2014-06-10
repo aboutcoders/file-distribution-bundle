@@ -2,6 +2,7 @@
 
 namespace Abc\FileDistributionBundle\Controller;
 
+use Abc\FileDistributionBundle\Doctrine\LocationManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -27,9 +28,8 @@ class LocationController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('AbcFileDistributionBundle:Location')->findAll();
+        $locationManager = $this->getLocationManager();
+        $entities        = $locationManager->findAll();
 
         return array(
             'entities' => $entities,
@@ -45,18 +45,17 @@ class LocationController extends Controller
      */
     public function createAction(Request $request)
     {
-        $entity = new Location();
-        $form   = $this->createCreateForm($entity);
+        $locationManager = $this->getLocationManager();
+        $entity          = $locationManager->create();
+        $form            = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
         if ($form->isValid() && !$request->isXmlHttpRequest()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
+
+            $locationManager->update($entity);
 
             return $this->redirect($this->generateUrl('location_show', array('id' => $entity->getId())));
         }
-        var_dump($form->getData());
         return array(
             'entity' => $entity,
             'form'   => $form->createView(),
@@ -89,8 +88,9 @@ class LocationController extends Controller
      */
     public function newAction()
     {
-        $entity = new Location();
-        $form   = $this->createCreateForm($entity);
+        $locationManager = $this->getLocationManager();
+        $entity          = $locationManager->create();
+        $form            = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
@@ -107,9 +107,8 @@ class LocationController extends Controller
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('AbcFileDistributionBundle:Location')->find($id);
+        $locationManager = $this->getLocationManager();
+        $entity          = $locationManager->findBy(array('id' => $id));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Location entity.');
@@ -129,9 +128,8 @@ class LocationController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('AbcFileDistributionBundle:Location')->find($id);
+        $locationManager = $this->getLocationManager();
+        $entity          = $locationManager->findBy(array('id' => $id));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Location entity.');
@@ -170,9 +168,8 @@ class LocationController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('AbcFileDistributionBundle:Location')->find($id);
+        $locationManager = $this->getLocationManager();
+        $entity          = $locationManager->findBy(array('id' => $id));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Location entity.');
@@ -182,7 +179,7 @@ class LocationController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $em->flush();
+            $locationManager->update($entity);
 
             return $this->redirect($this->generateUrl('location_edit', array('id' => $id)));
         }
@@ -193,4 +190,11 @@ class LocationController extends Controller
         );
     }
 
+    /**
+     * @return LocationManager
+     */
+    protected function getLocationManager()
+    {
+        return $this->container->get('abc_file_distribution.location_manager');
+    }
 }
