@@ -119,4 +119,11 @@ class Location extends BaseLocation
     {
         $this->createdAt = $createdAt;
     }
+
+    function __toString()
+    {
+        return $this->getName();
+    }
+
+
 }
