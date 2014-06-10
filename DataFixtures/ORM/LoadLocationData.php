@@ -29,7 +29,7 @@ class LoadLocationData extends AbstractFixture implements OrderedFixtureInterfac
     public function load(ObjectManager $manager)
     {
         /** @var LocationManager $locationManager */
-        $locationManager = $this->container->get('abc_file_distribution.location_manager.default');
+        $locationManager = $this->container->get('abc_file_distribution.location_manager');
 
         $location1 = new Location();
         $location1->setName('Default location');
