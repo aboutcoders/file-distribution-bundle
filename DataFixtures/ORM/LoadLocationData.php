@@ -3,6 +3,7 @@
 namespace Abc\FileDistributionBundle\DataFixtures\ORM;
 
 use Abc\File\FilesystemType;
+use Abc\FileDistributionBundle\Doctrine\LocationManager;
 use Abc\FileDistributionBundle\Entity\Location;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
@@ -27,12 +28,14 @@ class LoadLocationData extends AbstractFixture implements OrderedFixtureInterfac
 
     public function load(ObjectManager $manager)
     {
+        /** @var LocationManager $locationManager */
+        $locationManager = $this->container->get('abc_file_distribution.location_manager.default');
+
         $location1 = new Location();
         $location1->setName('Default location');
         $location1->setPath('/');
         $location1->setType(FilesystemType::Filesystem);
-        $manager->persist($location1);
-
+        $locationManager->update($location1);
     }
 
 }

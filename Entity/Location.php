@@ -17,6 +17,10 @@ class Location extends BaseLocation
     protected $name;
     /** @var string */
     protected $description;
+    /** @var \DateTime */
+    protected $createdAt;
+    /** @var \DateTime */
+    protected $updatedAt;
 
     /**
      * @return int
@@ -83,4 +87,36 @@ class Location extends BaseLocation
         $this->url = $url;
     }
 
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTime $updatedAt
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTime $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
 }
