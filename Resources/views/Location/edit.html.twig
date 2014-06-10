@@ -2,7 +2,6 @@
 
 {% block body -%}
     <h1>{{ 'Location edit'|trans }}</h1>
-
     {{ form_start(edit_form) }}
     {{ form_row(edit_form.name) }}
     {{ form_row(edit_form.description) }}
@@ -17,7 +16,4 @@
         </div>
     </div>
     {{ form_end(edit_form) }}
-    <ul class="record_actions">
-        <li>{{ form(delete_form) }}</li>
-    </ul>
 {% endblock %}

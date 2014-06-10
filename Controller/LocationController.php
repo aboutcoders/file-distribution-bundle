@@ -35,6 +35,7 @@ class LocationController extends Controller
             'entities' => $entities,
         );
     }
+
     /**
      * Creates a new Location entity.
      *
@@ -45,7 +46,7 @@ class LocationController extends Controller
     public function createAction(Request $request)
     {
         $entity = new Location();
-        $form = $this->createCreateForm($entity);
+        $form   = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
         if ($form->isValid() && !$request->isXmlHttpRequest()) {
@@ -114,11 +115,8 @@ class LocationController extends Controller
             throw $this->createNotFoundException('Unable to find Location entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
         return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'entity' => $entity
         );
     }
 
@@ -140,12 +138,9 @@ class LocationController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
-
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'entity'    => $entity,
+            'edit_form' => $editForm->createView()
         );
     }
 
@@ -165,6 +160,7 @@ class LocationController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Location entity.
      *
@@ -182,7 +178,6 @@ class LocationController extends Controller
             throw $this->createNotFoundException('Unable to find Location entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -193,51 +188,9 @@ class LocationController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'entity'    => $entity,
+            'edit_form' => $editForm->createView()
         );
     }
-    /**
-     * Deletes a Location entity.
-     *
-     * @Route("/{id}", name="location_delete")
-     * @Method("DELETE")
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AbcFileDistributionBundle:Location')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Location entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
-        }
-
-        return $this->redirect($this->generateUrl('location'));
-    }
-
-    /**
-     * Creates a form to delete a Location entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('location_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-            ;
-    }
 }
