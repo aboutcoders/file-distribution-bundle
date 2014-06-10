@@ -13,7 +13,7 @@
         <field name="description" column="description" type="text" nullable="true" />
         <field name="type" column="type" type="string" length="50" />
         <field name="path" column="path" type="string" length="255" />
-        <field name="url" column="url" type="string" length="255" />
+        <field name="url" column="url" type="string" length="255" nullable="true" />
         <field name="properties" column="properties" type="array" />
         <field name="createdAt" column="created_at" type="datetime">
             <gedmo:timestampable on="create"/>
