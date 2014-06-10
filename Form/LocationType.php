@@ -20,7 +20,7 @@ class LocationType extends AbstractType
             ->add('name')
             ->add('description')
             ->add('path')
-            ->add('url');
+            ->add('url', 'url');
 
         $providers = array(
             FilesystemType::FTP => new FtpProvider()
