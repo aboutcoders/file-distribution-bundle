@@ -11,7 +11,7 @@ interface LocationManagerInterface
 {
 
     /**
-     * Returns an empty contract instance.
+     * Returns an empty location instance.
      *
      * @return LocationInterface
      */
@@ -19,7 +19,7 @@ interface LocationManagerInterface
 
 
     /**
-     * Updates a contract.
+     * Updates a location.
      *
      * @param LocationInterface $location
      * @return void
@@ -28,7 +28,7 @@ interface LocationManagerInterface
 
 
     /**
-     * Deletes a contract.
+     * Deletes a location.
      *
      * @param LocationInterface $contract
      * @return void
@@ -37,7 +37,7 @@ interface LocationManagerInterface
 
 
     /**
-     * Finds a contract by the given criteria.
+     * Finds a location by the given criteria.
      *
      * @param array $criteria
      * @return LocationInterface
@@ -54,7 +54,7 @@ interface LocationManagerInterface
 
 
     /**
-     * Returns the contract's fully qualified class name.
+     * Returns the locations fully qualified class name.
      *
      * @return string
      */
