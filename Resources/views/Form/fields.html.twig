@@ -12,8 +12,8 @@
                     type: $form.attr('method'),
                     data: data,
                     success: function (html) {
-                        $form.replaceWith(
-                                jQuery(html).closest('form')
+                        $form.html(
+                                jQuery(html).closest('form').html()
                         );
                     }
                 });
@@ -36,8 +36,8 @@
                     type: $form.attr('method'),
                     data: data,
                     success: function (html) {
-                        $form.replaceWith(
-                                jQuery(html).closest('form')
+                        $form.html(
+                                jQuery(html).closest('form').html()
                         );
                     }
                 });
