@@ -12,7 +12,7 @@
                     type: $form.attr('method'),
                     data: data,
                     success: function (html) {
-                        $form.html(
+                        $form.replaceWith(
                                 jQuery(html).closest('form')
                         );
                     }
@@ -36,7 +36,7 @@
                     type: $form.attr('method'),
                     data: data,
                     success: function (html) {
-                        $form.html(
+                        $form.replaceWith(
                                 jQuery(html).closest('form')
                         );
                     }
