@@ -1,6 +1,6 @@
 <?php
 
-namespace Abc\FileDistributionBundle\Form\Provider;
+namespace Abc\Bundle\FileDistributionBundle\Form\Provider;
 
 use Symfony\Component\Form\Form;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Abc\FileDistributionBundle\Form;
+namespace Abc\Bundle\FileDistributionBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 

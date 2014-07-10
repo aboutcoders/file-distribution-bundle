@@ -1,6 +1,6 @@
 <?php
 
-namespace Abc\FileDistributionBundle\DependencyInjection;
+namespace Abc\Bundle\FileDistributionBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -25,37 +25,35 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-            ->scalarNode('db_driver')
-            ->validate()
-            ->ifNotInArray($supportedDrivers)
-            ->thenInvalid('The driver %s is not supported. Please choose one of ' . json_encode($supportedDrivers))
-            ->end()
-            ->cannotBeOverwritten()
-            ->isRequired()
-            ->cannotBeEmpty()
-            ->end()
-            ->scalarNode('model_manager_name')->defaultNull()->end()
+                ->scalarNode('db_driver')
+                    ->validate()
+                        ->ifNotInArray($supportedDrivers)
+                        ->thenInvalid('The driver %s is not supported. Please choose one of ' . json_encode($supportedDrivers))
+                    ->end()
+                    ->cannotBeOverwritten()
+                    ->isRequired()
+                    ->cannotBeEmpty()
+                ->end()
+                ->scalarNode('model_manager_name')->defaultNull()->end()
             ->end();
 
-
-        $this->addLocationSection($rootNode);
+        $this->addFilesystemSection($rootNode);
 
         return $treeBuilder;
     }
 
 
-    private function addLocationSection(ArrayNodeDefinition $node)
+    private function addFilesystemSection(ArrayNodeDefinition $node)
     {
         $node
             ->children()
-            ->arrayNode('location')
-            ->addDefaultsIfNotSet()
-            ->canBeUnset()
-            ->children()
-            ->scalarNode('location_manager')->defaultValue('abc_file_distribution.location_manager.default')->end()
-            ->end()
-            ->end()
+                ->arrayNode('filesystem')
+                    ->addDefaultsIfNotSet()
+                    ->canBeUnset()
+                    ->children()
+                        ->scalarNode('filesystem_manager')->defaultValue('abc.file_distribution.filesystem_manager.default')->end()
+                    ->end()
+                ->end()
             ->end();
     }
-
 }

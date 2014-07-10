@@ -1,14 +1,14 @@
 <?php
 
-namespace Abc\FileDistributionBundle\Form;
+namespace Abc\Bundle\FileDistributionBundle\Form;
 
-use Abc\File\FilesystemType;
-use Abc\FileDistributionBundle\Form\Provider\FtpProvider;
+use Abc\File\FilesystemType as Type;
+use Abc\Bundle\FileDistributionBundle\Form\Provider\FtpProvider;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class LocationType extends AbstractType
+class FilesystemType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -23,7 +23,7 @@ class LocationType extends AbstractType
             ->add('url', 'url', array('required' => false));
 
         $providers = array(
-            FilesystemType::FTP => new FtpProvider()
+            Type::FTP => new FtpProvider()
         );
         $builder->addEventSubscriber(new FieldValueChangeSubscriber($providers))
             ->add(
@@ -44,7 +44,7 @@ class LocationType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Abc\FileDistributionBundle\Entity\Location'
+            'data_class' => 'Abc\Bundle\FileDistributionle\Entity\Filesystem'
         ));
     }
 
@@ -53,6 +53,6 @@ class LocationType extends AbstractType
      */
     public function getName()
     {
-        return 'abc_filedistributionbundle_location';
+        return 'abc_file_distribution_bundle_filesystem';
     }
 }

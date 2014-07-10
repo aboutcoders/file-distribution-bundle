@@ -3,9 +3,9 @@
 {% block body -%}
     <h1>{{ entity.name }}</h1>
     <div class="btn-group">
-        <a href="{{ path('location') }}" class="btn btn-default"><span
+        <a href="{{ path('filesystem') }}" class="btn btn-default"><span
                     class="glyphicon glyphicon-list"></span> {{ 'Back to the list'|trans }}</a>
-        <a href="{{ path('location_edit', { 'id': entity.id }) }}" class="btn btn-warning"><span
+        <a href="{{ path('filesystem_edit', { 'id': entity.id }) }}" class="btn btn-warning"><span
                     class="glyphicon glyphicon-pencil"></span> {{ 'Edit'|trans }}</a>
     </div>
     <hr>

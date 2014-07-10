@@ -1,4 +1,4 @@
-_file_distribution_location:
-    resource: "@AbcFileDistributionBundle/Controller/LocationController.php"
+_file_distribution_filesystem:
+    resource: "@AbcFileDistributionBundle/Controller/FilesystemController.php"
     type:     annotation
     prefix:   /

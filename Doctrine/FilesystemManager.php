@@ -1,16 +1,16 @@
 <?php
 
-namespace Abc\FileDistributionBundle\Doctrine;
+namespace Abc\Bundle\FileDistributionBundle\Doctrine;
 
-use Abc\File\LocationInterface;
-use Abc\FileDistributionBundle\Model\LocationManager as BaseLocationManager;
+use Abc\Bundle\FileDistributionBundle\Entity\Filesystem;
+use Abc\Bundle\FileDistributionBundle\Model\FilesystemManager as BaseFilesystemManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
 
 /**
  * @author Wojciech Ciolko <w.ciolko@gmail.com>
  */
-class LocationManager extends BaseLocationManager
+class FilesystemManager extends BaseFilesystemManager
 {
     /** @var ObjectManager */
     protected $objectManager;
@@ -33,7 +33,6 @@ class LocationManager extends BaseLocationManager
         $this->class = $metadata->getName();
     }
 
-
     /**
      * {@inheritDoc}
      */
@@ -42,17 +41,17 @@ class LocationManager extends BaseLocationManager
         return $this->class;
     }
 
-
     /**
      * Updates a contract
      *
-     * @param LocationInterface $location
-     * @param Boolean           $andFlush Whether to flush the changes (default true)
+     * @param Filesystem $filesystem
+     * @param Boolean             $andFlush Whether to flush the changes (default true)
      */
-    public function update(LocationInterface $location, $andFlush = true)
+    public function update(Filesystem $filesystem, $andFlush = true)
     {
-        $this->objectManager->persist($location);
-        if ($andFlush) {
+        $this->objectManager->persist($filesystem);
+        if($andFlush)
+        {
             $this->objectManager->flush();
         }
     }
@@ -61,9 +60,9 @@ class LocationManager extends BaseLocationManager
     /**
      * {@inheritDoc}
      */
-    public function delete(LocationInterface $contract)
+    public function delete(Filesystem $filesystem)
     {
-        $this->objectManager->remove($contract);
+        $this->objectManager->remove($filesystem);
         $this->objectManager->flush();
     }
 

@@ -1,5 +1,5 @@
 <?php
-namespace Abc\FileDistributionBundle\Form;
+namespace Abc\Bundle\FileDistributionBundle\Form;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\Form;

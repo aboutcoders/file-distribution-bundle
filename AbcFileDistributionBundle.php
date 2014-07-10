@@ -1,6 +1,6 @@
 <?php
 
-namespace Abc\FileDistributionBundle;
+namespace Abc\Bundle\FileDistributionBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

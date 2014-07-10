@@ -1,14 +1,14 @@
 <?php
 
-namespace Abc\FileDistributionBundle\Entity;
+namespace Abc\Bundle\FileDistributionBundle\Entity;
 
-use Abc\FileDistributionBundle\Doctrine\LocationManager as BaseLocationManager;
+use Abc\Bundle\FileDistributionBundle\Doctrine\FilesystemManager as BaseFilesystemManager;
 use Doctrine\ORM\EntityManager;
 
 /**
  * @author Wojciech Ciolko <w.ciolko@gmail.com>
  */
-class ContractManager extends BaseLocationManager
+class FilesystemManager extends BaseFilesystemManager
 {
     /** @var EntityManager */
     protected $em;

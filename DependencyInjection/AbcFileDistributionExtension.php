@@ -1,6 +1,6 @@
 <?php
 
-namespace Abc\FileDistributionBundle\DependencyInjection;
+namespace Abc\Bundle\FileDistributionBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -25,34 +25,35 @@ class AbcFileDistributionExtension extends Extension
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config/services'));
 
+
         if ('custom' !== $config['db_driver']) {
             $loader->load(sprintf('%s.xml', $config['db_driver']));
         }
 
         $this->remapParametersNamespaces($config, $container, array(
             '' => array(
-                'db_driver'          => 'abc_file_distribution.storage',
-                'model_manager_name' => 'abc_file_distribution.model_manager_name'
+                'db_driver'          => 'abc.file_distribution.storage',
+                'model_manager_name' => 'abc.file_distribution.model_manager_name'
             )
         ));
 
-        if (!empty($config['location'])) {
-            $this->loadLocation($config['location'], $container, $loader, $config['db_driver']);
+        if (!empty($config['filesystem'])) {
+            $this->loadFilesystem($config['filesystem'], $container, $loader, $config['db_driver']);
         }
     }
 
 
-    private function loadLocation(array $config, ContainerBuilder $container, XmlFileLoader $loader, $dbDriver)
+    private function loadFilesystem(array $config, ContainerBuilder $container, XmlFileLoader $loader, $dbDriver)
     {
         if ('custom' !== $dbDriver) {
-            $loader->load(sprintf('%s_location.xml', $dbDriver));
+            $loader->load(sprintf('%s_filesystem.xml', $dbDriver));
         }
 
-        $container->setAlias('abc_file_distribution.location_manager', $config['location_manager']);
+        $container->setAlias('abc.file_distribution.filesystem_manager', $config['filesystem_manager']);
 
         $this->remapParametersNamespaces($config, $container, array(
             '' => array(
-                'location_class' => 'abc_file_distribution.model.location.class',
+                'filesystem_class' => 'abc.file_distribution.model.filesystem.class',
             )
         ));
     }

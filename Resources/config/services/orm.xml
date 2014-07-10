@@ -6,8 +6,8 @@
 
     <services>
 
-        <service id="abc_file_distribution.entity_manager" factory-service="doctrine" factory-method="getManager" class="Doctrine\ORM\EntityManager" public="false">
-            <argument>%abc_file_distribution.model_manager_name%</argument>
+        <service id="abc.file_distribution.entity_manager" factory-service="doctrine" factory-method="getManager" class="Doctrine\ORM\EntityManager" public="false">
+            <argument>%abc.file_distribution.model_manager_name%</argument>
         </service>
 
     </services>

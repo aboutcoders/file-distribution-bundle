@@ -1,6 +1,6 @@
 <?php
 
-namespace Abc\FileDistributionBundle\Form;
+namespace Abc\Bundle\FileDistributionBundle\Form;
 
 class EntityDynamicFormType extends DynamicFormType
 {

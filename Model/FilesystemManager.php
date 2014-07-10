@@ -1,11 +1,11 @@
 <?php
 
-namespace Abc\FileDistributionBundle\Model;
+namespace Abc\Bundle\FileDistributionBundle\Model;
 
 /**
  * @author Wojciech Ciolko <w.ciolko@gmail.com>
  */
-abstract class LocationManager implements LocationManagerInterface
+abstract class FilesystemManager implements FilesystemManagerInterface
 {
 
     /**

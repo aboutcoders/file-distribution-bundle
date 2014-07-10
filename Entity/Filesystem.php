@@ -1,13 +1,13 @@
 <?php
 
-namespace Abc\FileDistributionBundle\Entity;
+namespace Abc\Bundle\FileDistributionBundle\Entity;
 
-use Abc\File\Location as BaseLocation;
+use Abc\File\Filesystem as BaseFilesystem;
 
 /**
  * @author Wojciech Ciolko <w.ciolko@gmail.com>
  */
-class Location extends BaseLocation
+class Filesystem extends BaseFilesystem
 {
     /** @var int */
     protected $id;
@@ -87,7 +87,6 @@ class Location extends BaseLocation
         $this->url = $url;
     }
 
-
     /**
      * @return \DateTime
      */
@@ -124,6 +123,4 @@ class Location extends BaseLocation
     {
         return $this->getName();
     }
-
-
 }

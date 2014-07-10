@@ -1,5 +1,5 @@
 <?php
-namespace Abc\FileDistributionBundle\Form\Provider;
+namespace Abc\Bundle\FileDistributionBundle\Form\Provider;
 
 use Abc\File\FilesystemType;
 use Symfony\Component\Form\Form;
