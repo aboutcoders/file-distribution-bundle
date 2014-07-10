@@ -30,7 +30,7 @@ class FilesystemType extends AbstractType
                 'type',
                 new DynamicFormType(),
                 array(
-                    'choices'     => array(FilesystemType::Filesystem => 'Filesystem', FilesystemType::FTP => 'FTP'),
+                    'choices'     => array(Type::Filesystem => 'Filesystem', Type::FTP => 'FTP'),
                     'empty_value' => 'Choose an option',
                     'required'    => true,
                 )
@@ -44,7 +44,7 @@ class FilesystemType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Abc\Bundle\FileDistributionle\Entity\Filesystem'
+            'data_class' => 'Abc\Bundle\FileDistributionBundle\Entity\Filesystem'
         ));
     }
 
