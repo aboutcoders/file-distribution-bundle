@@ -34,13 +34,6 @@ class ServiceTest extends KernelTestCase
         $this->application->setCatchExceptions(false);
     }
 
-    public function testGetFilesystemFactory()
-    {
-        $subject = $this->container->get('abc.file_distribution.filesystem_factory');
-
-        $this->assertInstanceOf('Abc\File\FilesystemFactory', $subject);
-    }
-
     public function testGetManager()
     {
         $subject = $this->container->get('abc.file_distribution.manager');
