@@ -40,6 +40,8 @@ class AbcFileDistributionExtension extends Extension
         if (!empty($config['filesystem'])) {
             $this->loadFilesystem($config['filesystem'], $container, $loader, $config['db_driver']);
         }
+
+        $loader->load('service.xml');
     }
 
 
