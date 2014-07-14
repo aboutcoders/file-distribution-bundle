@@ -34,7 +34,19 @@ class Configuration implements ConfigurationInterface
                     ->isRequired()
                     ->cannotBeEmpty()
                 ->end()
-                ->scalarNode('model_manager_name')->defaultNull()->end()
+                ->scalarNode('model_manager_name')
+                    ->defaultNull()
+                ->end()
+                ->arrayNode('filesystems')
+                    ->canBeUnset()
+                    ->useAttributeAsKey('name')
+                    ->prototype('array')
+                        ->children()
+                            ->scalarNode('type')->isRequired()->end()
+                            ->scalarNode('path')->isRequired()->end()
+                        ->end()
+                    ->end()
+                ->end()
             ->end();
 
         $this->addFilesystemSection($rootNode);

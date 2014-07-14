@@ -49,7 +49,7 @@ class FilesystemManagerIntegrationTest extends KernelTestCase
         $filesystem = $manager->create();
 
         $filesystem->setName('foobar');
-        $filesystem->setType(FilesystemType::Filesystem);
+        $filesystem->setType(FilesystemType::LOCAL);
         $filesystem->setPath('/tmp');
 
         $manager->update($filesystem);

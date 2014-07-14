@@ -6,11 +6,7 @@
 
     <services>
 
-        <service id="abc.file_distribution.manager" class="Abc\File\DistributionManager" public="true">
-            <argument type="service" id="abc.file_distribution.filesystem_factory"/>
-        </service>
-
-        <service id="abc.file_distribution.filesystem_factory" class="Abc\File\FilesystemFactory" public="false"/>
+        <service id="abc.file_distribution.filesystem_client_factory" class="Abc\File\FilesystemClientFactory" public="true"/>
 
     </services>
 

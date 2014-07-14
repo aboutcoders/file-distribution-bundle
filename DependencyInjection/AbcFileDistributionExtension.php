@@ -2,8 +2,10 @@
 
 namespace Abc\Bundle\FileDistributionBundle\DependencyInjection;
 
+use Abc\File\Filesystem;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
@@ -41,7 +43,20 @@ class AbcFileDistributionExtension extends Extension
             $this->loadFilesystem($config['filesystem'], $container, $loader, $config['db_driver']);
         }
 
+
         $loader->load('service.xml');
+
+        if (isset($config['filesystems']))
+        {
+            foreach ($config['filesystems'] as $name => $filesystem)
+            {
+                $definition = new Definition('Abc\File\FilesystemClient', array($filesystem['type'], $filesystem['path']));
+                $definition->setFactoryService('abc.file_distribution.filesystem_client_factory');
+                $definition->setFactoryMethod('create');
+
+                $container->setDefinition($this->getFilesystemId($name), $definition);
+            }
+        }
     }
 
 
@@ -89,5 +104,19 @@ class AbcFileDistributionExtension extends Extension
                 }
             }
         }
+    }
+
+    private function buildFilesystem($config)
+    {
+        $filesystem = new Definition('Abc\File\Filesystem');
+        $filesystem->addMethodCall('setType', array($config['type']));
+        $filesystem->addMethodCall('setPath', array($config['path']));
+
+        return $filesystem;
+    }
+
+    private function getFilesystemId($name)
+    {
+        return sprintf('abc.file_distribution.filesystem.%s', $name);
     }
 }

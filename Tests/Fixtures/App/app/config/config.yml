@@ -37,3 +37,8 @@ doctrine:
 
 abc_file_distribution:
     db_driver: orm # there are no other valid values yet
+
+    filesystems:
+        default:
+            type: LOCAL
+            path: "%kernel.root_dir%/../../../../../build"
