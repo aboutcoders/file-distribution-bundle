@@ -41,4 +41,12 @@ class FilesystemConfigurationTest extends KernelTestCase
 
         $this->assertInstanceOf('Abc\Filesystem\Filesystem', $subject);
     }
+
+    public function testFilesystemIsInjectedInTaggedServices()
+    {
+        $subject = $this->container->get('filesystem_tag_test');
+
+        $this->assertInstanceOf('Abc\Filesystem\Filesystem', $subject->getFilesystem());
+    }
+
 } 

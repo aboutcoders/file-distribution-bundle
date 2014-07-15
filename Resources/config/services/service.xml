@@ -10,6 +10,8 @@
 
         <service id="abc.file_distribution.definition.prototype" class="Abc\Filesystem\Definition" abstract="false"/>
 
+        <service id="abc.filesystem" class="Abc\Filesystem\Filesystem" abstract="true"/>
+
     </services>
 
 </container>

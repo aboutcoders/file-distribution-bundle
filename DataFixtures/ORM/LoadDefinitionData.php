@@ -29,12 +29,12 @@ class LoadDefinitionData extends AbstractFixture implements OrderedFixtureInterf
     public function load(ObjectManager $manager)
     {
         /** @var DefinitionManagerInterface $manager */
-        $manager = $this->container->get('abc.file_distribution.filesystem_manager');
+        $manager = $this->container->get('abc.file_distribution.definition_manager');
 
         $filesystem = new Definition();
         $filesystem->setName('Default filesystem');
         $filesystem->setPath('/');
-        $filesystem->setType(FilesystemType::Filesystem);
+        $filesystem->setType(FilesystemType::LOCAL);
 
         $manager->update($filesystem);
     }
