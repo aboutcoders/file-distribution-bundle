@@ -1,4 +1,4 @@
 _file_distribution_filesystem:
-    resource: "@AbcFileDistributionBundle/Controller/FilesystemController.php"
+    resource: "@AbcFileDistributionBundle/Controller/DefnitionController.php"
     type:     annotation
     prefix:   /

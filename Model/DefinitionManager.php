@@ -5,7 +5,7 @@ namespace Abc\Bundle\FileDistributionBundle\Model;
 /**
  * @author Wojciech Ciolko <w.ciolko@gmail.com>
  */
-abstract class FilesystemManager implements FilesystemManagerInterface
+abstract class DefinitionManager implements DefinitionManagerInterface
 {
 
     /**

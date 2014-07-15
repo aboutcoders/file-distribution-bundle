@@ -2,8 +2,12 @@
 
 namespace Abc\Bundle\FileDistributionBundle\DependencyInjection;
 
+use Abc\File\Filesystem;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\DefinitionDecorator;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
@@ -37,25 +41,44 @@ class AbcFileDistributionExtension extends Extension
             )
         ));
 
-        if (!empty($config['filesystem'])) {
-            $this->loadFilesystem($config['filesystem'], $container, $loader, $config['db_driver']);
+        if (!empty($config['definition'])) {
+            $this->loadFilesystem($config['definition'], $container, $loader, $config['db_driver']);
         }
 
+
         $loader->load('service.xml');
+
+        if (isset($config['filesystems']))
+        {
+            foreach ($config['filesystems'] as $name => $filesystem)
+            {
+                $definitionId = 'abc.file_distribution.definition.' . $name;
+                $definition = new DefinitionDecorator('abc.file_distribution.definition.prototype');
+                $definition->addMethodCall('setType', array($filesystem['type']));
+                $definition->addMethodCall('setPath', array($filesystem['path']));
+                // TODO:  $job->replaceArgument(2, $options);
+
+                $container->setDefinition($definitionId, $definition);
+
+                $definition = new Definition('Abc\Filesystem\Filesystem', array(new Reference('abc.file_distribution.adapter_factory'), new Reference($definitionId)));
+
+                $container->setDefinition('abc.file_distribution.filesystem.'.$name, $definition);
+            }
+        }
     }
 
 
     private function loadFilesystem(array $config, ContainerBuilder $container, XmlFileLoader $loader, $dbDriver)
     {
         if ('custom' !== $dbDriver) {
-            $loader->load(sprintf('%s_filesystem.xml', $dbDriver));
+            $loader->load(sprintf('%s_definition.xml', $dbDriver));
         }
 
-        $container->setAlias('abc.file_distribution.filesystem_manager', $config['filesystem_manager']);
+        $container->setAlias('abc.file_distribution.definition_manager', $config['definition_manager']);
 
         $this->remapParametersNamespaces($config, $container, array(
             '' => array(
-                'filesystem_class' => 'abc.file_distribution.model.filesystem.class',
+                'definition_class' => 'abc.file_distribution.model.definition.class',
             )
         ));
     }

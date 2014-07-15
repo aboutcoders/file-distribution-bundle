@@ -2,40 +2,39 @@
 
 namespace Abc\Bundle\FileDistributionBundle\Model;
 
-use Abc\Bundle\FileDistributionBundle\Entity\Filesystem;
-use Abc\File\FilesystemInterface;
+use Abc\Bundle\FileDistributionBundle\Model\DefinitionInterface;
 
 /**
  * @author Wojciech Ciolko <w.ciolko@gmail.com>
  */
-interface FilesystemManagerInterface
+interface DefinitionManagerInterface
 {
 
     /**
-     * @return Filesystem
+     * @return DefinitionInterface
      */
     public function create();
 
 
     /**
-     * @param Filesystem $filesystem
+     * @param DefinitionInterface $definition
      * @return void
      */
-    public function update(Filesystem $filesystem);
+    public function update(DefinitionInterface $definition);
 
 
     /**
-     * @param Filesystem $contract
+     * @param DefinitionInterface $definition
      * @return void
      */
-    public function delete(Filesystem $contract);
+    public function delete(DefinitionInterface $definition);
 
 
     /**
      * Finds an entity by the given criteria.
      *
      * @param array $criteria
-     * @return Filesystem
+     * @return DefinitionInterface
      */
     public function findBy(array $criteria);
 

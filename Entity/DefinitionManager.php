@@ -2,13 +2,13 @@
 
 namespace Abc\Bundle\FileDistributionBundle\Entity;
 
-use Abc\Bundle\FileDistributionBundle\Doctrine\FilesystemManager as BaseFilesystemManager;
+use Abc\Bundle\FileDistributionBundle\Doctrine\DefinitionManager as BaseDefinitionManager;
 use Doctrine\ORM\EntityManager;
 
 /**
  * @author Wojciech Ciolko <w.ciolko@gmail.com>
  */
-class FilesystemManager extends BaseFilesystemManager
+class DefinitionManager extends BaseDefinitionManager
 {
     /** @var EntityManager */
     protected $em;

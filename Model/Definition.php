@@ -1,16 +1,12 @@
 <?php
 
-namespace Abc\Bundle\FileDistributionBundle\Entity;
 
-use Abc\File\Filesystem as BaseFilesystem;
+namespace Abc\Bundle\FileDistributionBundle\Model;
 
-/**
- * @author Wojciech Ciolko <w.ciolko@gmail.com>
- */
-class Filesystem extends BaseFilesystem
+use Abc\Filesystem\Definition as BaseDefinition;
+
+class Definition extends BaseDefinition implements DefinitionInterface
 {
-    /** @var int */
-    protected $id;
     /** @var string */
     protected $url;
     /** @var string */
@@ -23,24 +19,7 @@ class Filesystem extends BaseFilesystem
     protected $updatedAt;
 
     /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-
-    /**
-     * @return string
+     * {@inheritDoc}
      */
     public function getDescription()
     {
@@ -48,7 +27,7 @@ class Filesystem extends BaseFilesystem
     }
 
     /**
-     * @param string $description
+     * {@inheritDoc}
      */
     public function setDescription($description)
     {
@@ -56,7 +35,7 @@ class Filesystem extends BaseFilesystem
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
      */
     public function getName()
     {
@@ -64,7 +43,7 @@ class Filesystem extends BaseFilesystem
     }
 
     /**
-     * @param string $name
+     * {@inheritDoc}
      */
     public function setName($name)
     {
@@ -72,7 +51,7 @@ class Filesystem extends BaseFilesystem
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
      */
     public function getUrl()
     {
@@ -80,7 +59,7 @@ class Filesystem extends BaseFilesystem
     }
 
     /**
-     * @param string $url
+     * {@inheritDoc}
      */
     public function setUrl($url)
     {
@@ -88,7 +67,7 @@ class Filesystem extends BaseFilesystem
     }
 
     /**
-     * @return \DateTime
+     * {@inheritDoc}
      */
     public function getUpdatedAt()
     {
@@ -96,7 +75,7 @@ class Filesystem extends BaseFilesystem
     }
 
     /**
-     * @param \DateTime $updatedAt
+     * {@inheritDoc}
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -104,7 +83,7 @@ class Filesystem extends BaseFilesystem
     }
 
     /**
-     * @return \DateTime
+     * {@inheritDoc}
      */
     public function getCreatedAt()
     {
@@ -112,13 +91,16 @@ class Filesystem extends BaseFilesystem
     }
 
     /**
-     * @param \DateTime $createdAt
+     * {@inheritDoc}
      */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
     }
 
+    /**
+     * @return string
+     */
     function __toString()
     {
         return $this->getName();

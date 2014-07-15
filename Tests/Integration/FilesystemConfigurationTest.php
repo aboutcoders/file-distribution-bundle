@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class ServiceTest extends KernelTestCase
+class FilesystemConfigurationTest extends KernelTestCase
 {
 
     /** @var EntityManager */
@@ -34,10 +34,11 @@ class ServiceTest extends KernelTestCase
         $this->application->setCatchExceptions(false);
     }
 
-    public function testGetFilesystemClientFactory()
+    public function testConfiguredFilesystemsAreWiredAsServices()
     {
-        $subject = $this->container->get('abc.file_distribution.adapter_factory');
+        // the default filesystem is wired in ./Fixtures/app/config/config.yml
+        $subject = $this->container->get('abc.file_distribution.filesystem.default');
 
-        $this->assertInstanceOf('Abc\Filesystem\AdapterFactoryInterface', $subject);
+        $this->assertInstanceOf('Abc\Filesystem\Filesystem', $subject);
     }
 } 

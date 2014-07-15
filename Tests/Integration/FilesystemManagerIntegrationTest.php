@@ -3,8 +3,8 @@
 
 namespace Abc\Bundle\FileDistributionBundle\Tests\Integration;
 
-use Abc\Bundle\FileDistributionBundle\Model\FilesystemManagerInterface;
-use Abc\File\FilesystemType;
+use Abc\Bundle\FileDistributionBundle\Model\DefinitionManagerInterface;
+use Abc\Filesystem\FilesystemType;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -49,7 +49,7 @@ class FilesystemManagerIntegrationTest extends KernelTestCase
         $filesystem = $manager->create();
 
         $filesystem->setName('foobar');
-        $filesystem->setType(FilesystemType::Filesystem);
+        $filesystem->setType(FilesystemType::LOCAL);
         $filesystem->setPath('/tmp');
 
         $manager->update($filesystem);
@@ -58,11 +58,11 @@ class FilesystemManagerIntegrationTest extends KernelTestCase
     }
 
     /**
-     * @return FilesystemManagerInterface
+     * @return DefinitionManagerInterface
      */
     protected function getManager()
     {
-        return $this->container->get('abc.file_distribution.filesystem_manager');
+        return $this->container->get('abc.file_distribution.definition_manager');
     }
 
     /**

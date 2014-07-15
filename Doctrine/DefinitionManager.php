@@ -2,15 +2,15 @@
 
 namespace Abc\Bundle\FileDistributionBundle\Doctrine;
 
-use Abc\Bundle\FileDistributionBundle\Entity\Filesystem;
-use Abc\Bundle\FileDistributionBundle\Model\FilesystemManager as BaseFilesystemManager;
+use Abc\Bundle\FileDistributionBundle\Model\DefinitionInterface;
+use Abc\Bundle\FileDistributionBundle\Model\DefinitionManager as BaseDefinitionManager;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
 
 /**
  * @author Wojciech Ciolko <w.ciolko@gmail.com>
  */
-class FilesystemManager extends BaseFilesystemManager
+class DefinitionManager extends BaseDefinitionManager
 {
     /** @var ObjectManager */
     protected $objectManager;
@@ -41,15 +41,13 @@ class FilesystemManager extends BaseFilesystemManager
         return $this->class;
     }
 
+
     /**
-     * Updates a contract
-     *
-     * @param Filesystem $filesystem
-     * @param Boolean             $andFlush Whether to flush the changes (default true)
+     * {@inheritDoc}
      */
-    public function update(Filesystem $filesystem, $andFlush = true)
+    public function update(DefinitionInterface $definition, $andFlush = true)
     {
-        $this->objectManager->persist($filesystem);
+        $this->objectManager->persist($definition);
         if($andFlush)
         {
             $this->objectManager->flush();
@@ -60,9 +58,9 @@ class FilesystemManager extends BaseFilesystemManager
     /**
      * {@inheritDoc}
      */
-    public function delete(Filesystem $filesystem)
+    public function delete(DefinitionInterface $definition)
     {
-        $this->objectManager->remove($filesystem);
+        $this->objectManager->remove($definition);
         $this->objectManager->flush();
     }
 

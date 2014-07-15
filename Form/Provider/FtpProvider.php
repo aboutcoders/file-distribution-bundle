@@ -1,7 +1,7 @@
 <?php
 namespace Abc\Bundle\FileDistributionBundle\Form\Provider;
 
-use Abc\File\FilesystemType;
+use Abc\Filesystem\FilesystemType;
 use Symfony\Component\Form\Form;
 
 class FtpProvider implements ProviderInterface

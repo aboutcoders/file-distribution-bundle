@@ -2,16 +2,16 @@
 
 namespace Abc\Bundle\FileDistributionBundle\DataFixtures\ORM;
 
-use Abc\Bundle\FileDistributionBundle\Model\FilesystemManagerInterface;
-use Abc\File\FilesystemType;
-use Abc\Bundle\FileDistributionBundle\Entity\Filesystem;
+use Abc\Bundle\FileDistributionBundle\Model\DefinitionManagerInterface;
+use Abc\Filesystem\FilesystemType;
+use Abc\Bundle\FileDistributionBundle\Entity\Definition;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class LoadFilesystemData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
+class LoadDefinitionData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
 
     private $container;
@@ -28,10 +28,10 @@ class LoadFilesystemData extends AbstractFixture implements OrderedFixtureInterf
 
     public function load(ObjectManager $manager)
     {
-        /** @var FilesystemManagerInterface $manager */
+        /** @var DefinitionManagerInterface $manager */
         $manager = $this->container->get('abc.file_distribution.filesystem_manager');
 
-        $filesystem = new Filesystem();
+        $filesystem = new Definition();
         $filesystem->setName('Default filesystem');
         $filesystem->setPath('/');
         $filesystem->setType(FilesystemType::Filesystem);
