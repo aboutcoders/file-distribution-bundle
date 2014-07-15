@@ -38,6 +38,6 @@ class ServiceTest extends KernelTestCase
     {
         $subject = $this->container->get('abc.file_distribution.adapter_factory');
 
-        $this->assertInstanceOf('Abc\File\AdapterFactoryInterface', $subject);
+        $this->assertInstanceOf('Abc\Filesystem\AdapterFactoryInterface', $subject);
     }
 } 

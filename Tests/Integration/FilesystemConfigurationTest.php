@@ -37,8 +37,8 @@ class FilesystemConfigurationTest extends KernelTestCase
     public function testConfiguredFilesystemsAreWiredAsServices()
     {
         // the default filesystem is wired in ./Fixtures/app/config/config.yml
-        $subject = $this->container->get('abc.file_distribution.client.default');
+        $subject = $this->container->get('abc.file_distribution.filesystem.default');
 
-        $this->assertInstanceOf('Abc\File\FilesystemClient', $subject);
+        $this->assertInstanceOf('Abc\Filesystem\Filesystem', $subject);
     }
 } 

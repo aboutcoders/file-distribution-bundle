@@ -2,13 +2,13 @@
 
 namespace Abc\Bundle\FileDistributionBundle\Form;
 
-use Abc\File\FilesystemType as Type;
+use Abc\Filesystem\FilesystemType;
 use Abc\Bundle\FileDistributionBundle\Form\Provider\FtpProvider;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class FilesystemType extends AbstractType
+class DefinitionType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -23,14 +23,14 @@ class FilesystemType extends AbstractType
             ->add('url', 'url', array('required' => false));
 
         $providers = array(
-            Type::FTP => new FtpProvider()
+            FilesystemType::FTP => new FtpProvider()
         );
         $builder->addEventSubscriber(new FieldValueChangeSubscriber($providers))
             ->add(
                 'type',
                 new DynamicFormType(),
                 array(
-                    'choices'     => array(Type::Filesystem => 'Filesystem', Type::FTP => 'FTP'),
+                    'choices'     => array(FilesystemType::LOCAL => 'Filesystem', FilesystemType::FTP => 'FTP'),
                     'empty_value' => 'Choose an option',
                     'required'    => true,
                 )
@@ -44,7 +44,7 @@ class FilesystemType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Abc\Bundle\FileDistributionBundle\Entity\Filesystem'
+            'data_class' => 'Abc\Bundle\FileDistributionBundle\Entity\Definition'
         ));
     }
 
@@ -53,6 +53,6 @@ class FilesystemType extends AbstractType
      */
     public function getName()
     {
-        return 'abc_file_distribution_bundle_filesystem';
+        return 'abc_file_distribution_bundle_definition';
     }
 }

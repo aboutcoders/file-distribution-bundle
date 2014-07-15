@@ -2,12 +2,12 @@
 
 namespace Abc\Bundle\FileDistributionBundle\Tests\Doctrine;
 
-use Abc\Bundle\FileDistributionBundle\Doctrine\FilesystemManager;
+use Abc\Bundle\FileDistributionBundle\Doctrine\DefinitionManager;
 use Doctrine\Common\Persistence\Mapping\ClassMetadata;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
 
-class FilesystemManagerTest extends \PHPUnit_Framework_TestCase {
+class DefinitionManagerTest extends \PHPUnit_Framework_TestCase {
 
     /** @var string */
     private $class;
@@ -18,13 +18,13 @@ class FilesystemManagerTest extends \PHPUnit_Framework_TestCase {
     /** @var ObjectRepository|\PHPUnit_Framework_MockObject_MockObject */
     private $repository;
 
-    /** @var FilesystemManager */
+    /** @var DefinitionManager */
     private $subject;
 
 
     public function setUp()
     {
-        $this->class         = 'Abc\Bundle\FileDistributionBundle\Entity\Filesystem';
+        $this->class         = 'Abc\Bundle\FileDistributionBundle\Entity\Definition';
         $this->classMetaData = $this->getMock('Doctrine\Common\Persistence\Mapping\ClassMetadata');
         $this->objectManager = $this->getMock('Doctrine\Common\Persistence\ObjectManager');
         $this->repository    = $this->getMock('Doctrine\Common\Persistence\ObjectRepository');
@@ -41,7 +41,7 @@ class FilesystemManagerTest extends \PHPUnit_Framework_TestCase {
             ->method('getRepository')
             ->will($this->returnValue($this->repository));
 
-        $this->subject = new FilesystemManager($this->objectManager, $this->class);
+        $this->subject = new DefinitionManager($this->objectManager, $this->class);
     }
 
 

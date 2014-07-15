@@ -2,25 +2,25 @@
 
 namespace Abc\Bundle\FileDistributionBundle\Controller;
 
-use Abc\Bundle\FileDistributionBundle\Doctrine\FilesystemManager;
-use Abc\Bundle\FileDistributionBundle\Model\FilesystemManagerInterface;
+use Abc\Bundle\FileDistributionBundle\Doctrine\DefinitionManager;
+use Abc\Bundle\FileDistributionBundle\Model\DefinitionManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Abc\Bundle\FileDistributionBundle\Entity\Filesystem;
-use Abc\Bundle\FileDistributionBundle\Form\FilesystemType;
+use Abc\Bundle\FileDistributionBundle\Entity\Definition;
+use Abc\Bundle\FileDistributionBundle\Form\DefinitionType;
 
 /**
- * Filesystem controller.
+ * Definition controller.
  *
  * @Route("/filesystem")
  */
-class FilesystemController extends Controller
+class DefinitionController extends Controller
 {
     /**
-     * Lists all Filesystem entities.
+     * Lists all entities.
      *
      * @Route("/", name="filesystem")
      * @Method("GET")
@@ -28,7 +28,7 @@ class FilesystemController extends Controller
      */
     public function indexAction()
     {
-        $manager  = $this->getFilesystemManager();
+        $manager  = $this->getDefinitionManager();
         $entities = $manager->findAll();
 
         return array(
@@ -37,15 +37,15 @@ class FilesystemController extends Controller
     }
 
     /**
-     * Creates a new Filesystem entity.
+     * Creates a new entity.
      *
      * @Route("/", name="filesystem_create")
      * @Method("POST")
-     * @Template("AbcFileDistributionBundle:Filesystem:new.html.twig")
+     * @Template("AbcFileDistributionBundle:Definition:new.html.twig")
      */
     public function createAction(Request $request)
     {
-        $manager = $this->getFilesystemManager();
+        $manager = $this->getDefinitionManager();
         $entity  = $manager->create();
         $form    = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -64,16 +64,16 @@ class FilesystemController extends Controller
     }
 
     /**
-     * Creates a form to create a Filesystem entity.
+     * Creates a form to create a entity.
      *
-     * @param Filesystem $entity The entity
+     * @param Definition $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Filesystem $entity)
+    private function createCreateForm(Definition $entity)
     {
         $form = $this->createForm(
-            new FilesystemType(),
+            new DefinitionType(),
             $entity,
             array(
                 'action' => $this->generateUrl('filesystem_create'),
@@ -85,7 +85,7 @@ class FilesystemController extends Controller
     }
 
     /**
-     * Displays a form to create a new Filesystem entity.
+     * Displays a form to create a new entity.
      *
      * @Route("/new", name="filesystem_new")
      * @Method("GET")
@@ -93,7 +93,7 @@ class FilesystemController extends Controller
      */
     public function newAction()
     {
-        $manager = $this->getFilesystemManager();
+        $manager = $this->getDefinitionManager();
         $entity  = $manager->create();
         $form    = $this->createCreateForm($entity);
 
@@ -104,7 +104,7 @@ class FilesystemController extends Controller
     }
 
     /**
-     * Finds and displays a Filesystem entity.
+     * Finds and displays a entity.
      *
      * @Route("/{id}", name="filesystem_show")
      * @Method("GET")
@@ -112,12 +112,12 @@ class FilesystemController extends Controller
      */
     public function showAction($id)
     {
-        $manager = $this->getFilesystemManager();
+        $manager = $this->getDefinitionManager();
         $entity  = $manager->findBy(array('id' => $id));
 
         if(!$entity)
         {
-            throw $this->createNotFoundException('Unable to find Filesystem entity.');
+            throw $this->createNotFoundException('Unable to find entity.');
         }
 
         return array(
@@ -126,7 +126,7 @@ class FilesystemController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing Filesystem entity.
+     * Displays a form to edit an existing entity.
      *
      * @Route("/{id}/edit", name="filesystem_edit")
      * @Method("GET")
@@ -134,12 +134,12 @@ class FilesystemController extends Controller
      */
     public function editAction($id)
     {
-        $manager = $this->getFilesystemManager();
+        $manager = $this->getDefinitionManager();
         $entity  = $manager->findBy(array('id' => $id));
 
         if(!$entity)
         {
-            throw $this->createNotFoundException('Unable to find Filesystem entity.');
+            throw $this->createNotFoundException('Unable to find entity.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -151,16 +151,16 @@ class FilesystemController extends Controller
     }
 
     /**
-     * Creates a form to edit a Filesystem entity.
+     * Creates a form to edit a entity.
      *
-     * @param Filesystem $entity The entity
+     * @param Definition $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Filesystem $entity)
+    private function createEditForm(Definition $entity)
     {
         $form = $this->createForm(
-            new FilesystemType(),
+            new DefinitionType(),
             $entity,
             array(
                 'action' => $this->generateUrl('filesystem_update', array('id' => $entity->getId())),
@@ -172,20 +172,20 @@ class FilesystemController extends Controller
     }
 
     /**
-     * Edits an existing Filesystem entity.
+     * Edits an existing entity.
      *
      * @Route("/{id}", name="filesystem_update")
      * @Method("PUT")
-     * @Template("AbcFileDistributionBundle:Filesystem:edit.html.twig")
+     * @Template("AbcFileDistributionBundle:Definition:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
-        $manager = $this->getFilesystemManager();
+        $manager = $this->getDefinitionManager();
         $entity  = $manager->findBy(array('id' => $id));
 
         if(!$entity)
         {
-            throw $this->createNotFoundException('Unable to find Filesystem entity.');
+            throw $this->createNotFoundException('Unable to find entity.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -205,10 +205,10 @@ class FilesystemController extends Controller
     }
 
     /**
-     * @return FilesystemManagerInterface
+     * @return DefinitionManagerInterface
      */
-    protected function getFilesystemManager()
+    protected function getDefinitionManager()
     {
-        return $this->container->get('abc.file_distribution.filesystem_manager');
+        return $this->container->get('abc.file_distribution.definition_manager');
     }
 }

@@ -1,4 +1,4 @@
-Abc\Bundle\FileDistributionBundle\Entity\Filesystem:
+Abc\Bundle\FileDistributionBundle\Entity\Definition:
     properties:
         name:
             - NotBlank: ~

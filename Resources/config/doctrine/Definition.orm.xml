@@ -5,7 +5,7 @@
                     http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
                   xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
 
-    <entity name="Abc\Bundle\FileDistributionBundle\Entity\Filesystem" table="abc_filesystem">
+    <entity name="Abc\Bundle\FileDistributionBundle\Entity\Definition" table="abc_filesystem_definition">
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO" />
         </id>

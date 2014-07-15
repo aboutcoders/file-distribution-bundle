@@ -41,8 +41,8 @@ class AbcFileDistributionExtension extends Extension
             )
         ));
 
-        if (!empty($config['filesystem'])) {
-            $this->loadFilesystem($config['filesystem'], $container, $loader, $config['db_driver']);
+        if (!empty($config['definition'])) {
+            $this->loadFilesystem($config['definition'], $container, $loader, $config['db_driver']);
         }
 
 
@@ -52,16 +52,17 @@ class AbcFileDistributionExtension extends Extension
         {
             foreach ($config['filesystems'] as $name => $filesystem)
             {
-                $definitionId = 'abc.file_distribution.filesystem.' . $name;
-                $filesystemDef = new DefinitionDecorator('abc.file_distribution.filesystem.prototype');
-                $filesystemDef->addMethodCall('setType', array($filesystem['type']));
-                $filesystemDef->addMethodCall('setPath', array($filesystem['path']));
+                $definitionId = 'abc.file_distribution.definition.' . $name;
+                $definition = new DefinitionDecorator('abc.file_distribution.definition.prototype');
+                $definition->addMethodCall('setType', array($filesystem['type']));
+                $definition->addMethodCall('setPath', array($filesystem['path']));
                 // TODO:  $job->replaceArgument(2, $options);
-                $container->setDefinition($definitionId, $filesystemDef);
 
-                $definition = new Definition('Abc\File\FilesystemClient', array(new Reference('abc.file_distribution.adapter_factory'), new Reference($definitionId)));
+                $container->setDefinition($definitionId, $definition);
 
-                $container->setDefinition('abc.file_distribution.client.'.$name, $definition);
+                $definition = new Definition('Abc\Filesystem\Filesystem', array(new Reference('abc.file_distribution.adapter_factory'), new Reference($definitionId)));
+
+                $container->setDefinition('abc.file_distribution.filesystem.'.$name, $definition);
             }
         }
     }
@@ -70,14 +71,14 @@ class AbcFileDistributionExtension extends Extension
     private function loadFilesystem(array $config, ContainerBuilder $container, XmlFileLoader $loader, $dbDriver)
     {
         if ('custom' !== $dbDriver) {
-            $loader->load(sprintf('%s_filesystem.xml', $dbDriver));
+            $loader->load(sprintf('%s_definition.xml', $dbDriver));
         }
 
-        $container->setAlias('abc.file_distribution.filesystem_manager', $config['filesystem_manager']);
+        $container->setAlias('abc.file_distribution.definition_manager', $config['definition_manager']);
 
         $this->remapParametersNamespaces($config, $container, array(
             '' => array(
-                'filesystem_class' => 'abc.file_distribution.model.filesystem.class',
+                'definition_class' => 'abc.file_distribution.model.definition.class',
             )
         ));
     }
