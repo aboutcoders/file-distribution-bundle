@@ -6,7 +6,9 @@
 
     <services>
 
-        <service id="abc.file_distribution.filesystem_client_factory" class="Abc\File\FilesystemClientFactory" public="true"/>
+        <service id="abc.file_distribution.adapter_factory" class="Abc\File\AdapterFactory" public="true"/>
+
+        <service id="abc.file_distribution.filesystem.prototype" class="Abc\File\Filesystem" abstract="false"/>
 
     </services>
 

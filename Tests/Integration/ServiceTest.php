@@ -36,8 +36,8 @@ class ServiceTest extends KernelTestCase
 
     public function testGetFilesystemClientFactory()
     {
-        $subject = $this->container->get('abc.file_distribution.filesystem_client_factory');
+        $subject = $this->container->get('abc.file_distribution.adapter_factory');
 
-        $this->assertInstanceOf('Abc\File\FilesystemClientFactory', $subject);
+        $this->assertInstanceOf('Abc\File\AdapterFactoryInterface', $subject);
     }
 } 

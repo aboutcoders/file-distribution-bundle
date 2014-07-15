@@ -6,6 +6,8 @@ use Abc\File\Filesystem;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\DefinitionDecorator;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
@@ -50,11 +52,16 @@ class AbcFileDistributionExtension extends Extension
         {
             foreach ($config['filesystems'] as $name => $filesystem)
             {
-                $definition = new Definition('Abc\File\FilesystemClient', array($filesystem['type'], $filesystem['path']));
-                $definition->setFactoryService('abc.file_distribution.filesystem_client_factory');
-                $definition->setFactoryMethod('create');
+                $definitionId = 'abc.file_distribution.filesystem.' . $name;
+                $filesystemDef = new DefinitionDecorator('abc.file_distribution.filesystem.prototype');
+                $filesystemDef->addMethodCall('setType', array($filesystem['type']));
+                $filesystemDef->addMethodCall('setPath', array($filesystem['path']));
+                // TODO:  $job->replaceArgument(2, $options);
+                $container->setDefinition($definitionId, $filesystemDef);
 
-                $container->setDefinition($this->getFilesystemId($name), $definition);
+                $definition = new Definition('Abc\File\FilesystemClient', array(new Reference('abc.file_distribution.adapter_factory'), new Reference($definitionId)));
+
+                $container->setDefinition('abc.file_distribution.client.'.$name, $definition);
             }
         }
     }
@@ -104,19 +111,5 @@ class AbcFileDistributionExtension extends Extension
                 }
             }
         }
-    }
-
-    private function buildFilesystem($config)
-    {
-        $filesystem = new Definition('Abc\File\Filesystem');
-        $filesystem->addMethodCall('setType', array($config['type']));
-        $filesystem->addMethodCall('setPath', array($config['path']));
-
-        return $filesystem;
-    }
-
-    private function getFilesystemId($name)
-    {
-        return sprintf('abc.file_distribution.filesystem.%s', $name);
     }
 }
