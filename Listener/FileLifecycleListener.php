@@ -80,8 +80,6 @@ class FileLifecycleListener
      */
     public function postRemove(LifecycleEventArgs $args)
     {
-        $this->logger->error('postRemove');
-
         $entity = $args->getEntity();
 
         if($entity instanceof FileLifecycleInterface)
@@ -119,8 +117,6 @@ class FileLifecycleListener
      */
     protected function upload(LifecycleEventArgs $args)
     {
-        $this->logger->error('upload');
-
         $entity = $args->getEntity();
 
         if($entity instanceof FileLifecycleInterface && null !== $entity->getFile())
@@ -166,8 +162,6 @@ class FileLifecycleListener
      */
     protected function preUpload(LifecycleEventArgs $args)
     {
-        $this->logger->error('preUpload');
-
         $entity = $args->getEntity();
 
         if($entity instanceof FileLifecycleInterface && null !== $entity->getFile())
