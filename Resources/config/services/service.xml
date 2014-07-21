@@ -8,6 +8,10 @@
 
         <service id="abc.file_distribution.adapter_factory" class="Abc\Filesystem\AdapterFactory" public="true"/>
 
+        <service id="abc.file_distribution.filesystem_factory" class="Abc\Filesystem\FilesystemFactory" public="true">
+            <argument type="service" id="abc.file_distribution.adapter_factory"/>
+        </service>
+
         <service id="abc.file_distribution.definition.prototype" class="Abc\Filesystem\Definition" abstract="false"/>
 
         <service id="abc.filesystem" class="Abc\Filesystem\Filesystem" abstract="true"/>
