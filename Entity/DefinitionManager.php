@@ -23,4 +23,28 @@ class DefinitionManager extends BaseDefinitionManager
         parent::__construct($em, $class);
         $this->em = $em;
     }
+
+    /**
+     * Returns the filesystems that have public url as key value array
+     *
+     * @return array
+     */
+    public function getFilesystemsWithPublicUrl()
+    {
+        $ret = array();
+
+        $qb = $this->em->getRepository('AbcDistributionBundle:Definition')
+            ->createQueryBuilder('d');
+        $qb->where($qb->expr()->isNotNull('d.url'))
+            ->andWhere("d.url <> ''");
+
+        $items = $qb->getQuery()
+            ->getResult();
+
+        foreach ($items as $item) {
+            $ret[$item->getId()] = $item->getName();
+        }
+
+        return $ret;
+    }
 }

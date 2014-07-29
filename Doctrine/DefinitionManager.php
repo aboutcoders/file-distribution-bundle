@@ -10,7 +10,7 @@ use Doctrine\Common\Persistence\ObjectRepository;
 /**
  * @author Wojciech Ciolko <w.ciolko@gmail.com>
  */
-class DefinitionManager extends BaseDefinitionManager
+abstract class DefinitionManager extends BaseDefinitionManager
 {
     /** @var ObjectManager */
     protected $objectManager;
@@ -48,8 +48,7 @@ class DefinitionManager extends BaseDefinitionManager
     public function update(DefinitionInterface $definition, $andFlush = true)
     {
         $this->objectManager->persist($definition);
-        if($andFlush)
-        {
+        if ($andFlush) {
             $this->objectManager->flush();
         }
     }
