@@ -33,13 +33,12 @@ class DefinitionManager extends BaseDefinitionManager
     {
         $ret = array();
 
-        $qb = $this->em->getRepository('AbcDistributionBundle:Definition')
+        $qb = $this->em->getRepository('\Abc\Bundle\FileDistributionBundle\Entity\Definition')
             ->createQueryBuilder('d');
         $qb->where($qb->expr()->isNotNull('d.url'))
             ->andWhere("d.url <> ''");
 
-        $items = $qb->getQuery()
-            ->getResult();
+        $items = $qb->getQuery()->getResult();
 
         foreach ($items as $item) {
             $ret[$item->getId()] = $item->getName();
