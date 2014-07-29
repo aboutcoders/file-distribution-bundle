@@ -50,8 +50,7 @@ class DefinitionController extends Controller
         $form    = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
-        if($form->isValid() && !$request->isXmlHttpRequest())
-        {
+        if ($form->isValid() && !$request->isXmlHttpRequest()) {
             $manager->update($entity);
 
             return $this->redirect($this->generateUrl('filesystem_show', array('id' => $entity->getId())));
@@ -59,7 +58,7 @@ class DefinitionController extends Controller
 
         return array(
             'entity' => $entity,
-            'form' => $form->createView(),
+            'form'   => $form->createView(),
         );
     }
 
@@ -99,7 +98,7 @@ class DefinitionController extends Controller
 
         return array(
             'entity' => $entity,
-            'form' => $form->createView(),
+            'form'   => $form->createView(),
         );
     }
 
@@ -113,10 +112,9 @@ class DefinitionController extends Controller
     public function showAction($id)
     {
         $manager = $this->getDefinitionManager();
-        $entity  = $manager->findBy(array('id' => $id));
+        $entity  = $manager->findOneBy(array('id' => $id));
 
-        if(!$entity)
-        {
+        if (!$entity) {
             throw $this->createNotFoundException('Unable to find entity.');
         }
 
@@ -135,17 +133,16 @@ class DefinitionController extends Controller
     public function editAction($id)
     {
         $manager = $this->getDefinitionManager();
-        $entity  = $manager->findBy(array('id' => $id));
+        $entity  = $manager->findOneBy(array('id' => $id));
 
-        if(!$entity)
-        {
+        if (!$entity) {
             throw $this->createNotFoundException('Unable to find entity.');
         }
 
         $editForm = $this->createEditForm($entity);
 
         return array(
-            'entity' => $entity,
+            'entity'    => $entity,
             'edit_form' => $editForm->createView()
         );
     }
@@ -181,25 +178,23 @@ class DefinitionController extends Controller
     public function updateAction(Request $request, $id)
     {
         $manager = $this->getDefinitionManager();
-        $entity  = $manager->findBy(array('id' => $id));
+        $entity  = $manager->findOneBy(array('id' => $id));
 
-        if(!$entity)
-        {
+        if (!$entity) {
             throw $this->createNotFoundException('Unable to find entity.');
         }
 
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
-        if($editForm->isValid())
-        {
+        if ($editForm->isValid()) {
             $manager->update($entity);
 
             return $this->redirect($this->generateUrl('filesystem_edit', array('id' => $id)));
         }
 
         return array(
-            'entity' => $entity,
+            'entity'    => $entity,
             'edit_form' => $editForm->createView()
         );
     }

@@ -113,6 +113,6 @@ class DefinitionManagerTest extends \PHPUnit_Framework_TestCase
             ->method('findOneBy')
             ->with($criteria);
 
-        $this->subject->findBy($criteria);
+        $this->subject->findOneBy($criteria);
     }
 }

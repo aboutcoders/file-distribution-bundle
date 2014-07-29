@@ -67,7 +67,7 @@ abstract class DefinitionManager extends BaseDefinitionManager
     /**
      * {@inheritDoc}
      */
-    public function findBy(array $criteria)
+    public function findOneBy(array $criteria)
     {
         return $this->repository->findOneBy($criteria);
     }

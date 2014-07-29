@@ -36,7 +36,7 @@ interface DefinitionManagerInterface
      * @param array $criteria
      * @return DefinitionInterface
      */
-    public function findBy(array $criteria);
+    public function findOneBy(array $criteria);
 
 
     /**
