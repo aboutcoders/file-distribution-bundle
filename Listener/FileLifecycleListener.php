@@ -112,6 +112,19 @@ class FileLifecycleListener
 
     /**
      * @param LifecycleEventArgs $args
+     */
+    public function postLoad(LifecycleEventArgs $args)
+    {
+        $entity = $args->getEntity();
+
+        if($entity instanceof FileLifecycleInterface)
+        {
+            $entity->setFilesystemDefinition($this->filesystem->getDefinition());
+        }
+    }
+
+    /**
+     * @param LifecycleEventArgs $args
      * @throws \Exception
      * @throws \Symfony\Component\Filesystem\Exception\IOException
      */
@@ -168,7 +181,6 @@ class FileLifecycleListener
         {
             $filename = sha1(uniqid(mt_rand(), true));
             $entity->setPath($entity->getRemoteDir() . '/' . $filename . '.' . $entity->getFile()->guessExtension());
-            $entity->setSize($entity->getFile()->getFileInfo()->getSize());
             $entity->setSize($entity->getFile()->getFileInfo()->getSize());
         }
     }
