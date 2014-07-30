@@ -36,7 +36,7 @@ interface DefinitionManagerInterface
      * @param array $criteria
      * @return DefinitionInterface
      */
-    public function findBy(array $criteria);
+    public function findOneBy(array $criteria);
 
 
     /**
@@ -53,4 +53,11 @@ interface DefinitionManagerInterface
      * @return string
      */
     public function getClass();
+
+    /**
+     * Returns the filesystems that have public url as key value array
+     *
+     * @return array
+     */
+    public function getFilesystemsWithPublicUrl();
 }

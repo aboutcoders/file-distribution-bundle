@@ -2,12 +2,13 @@
 
 namespace Abc\Bundle\FileDistributionBundle\Tests\Doctrine;
 
-use Abc\Bundle\FileDistributionBundle\Doctrine\DefinitionManager;
+use Abc\Bundle\FileDistributionBundle\Entity\DefinitionManager;
 use Doctrine\Common\Persistence\Mapping\ClassMetadata;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
 
-class DefinitionManagerTest extends \PHPUnit_Framework_TestCase {
+class DefinitionManagerTest extends \PHPUnit_Framework_TestCase
+{
 
     /** @var string */
     private $class;
@@ -17,7 +18,6 @@ class DefinitionManagerTest extends \PHPUnit_Framework_TestCase {
     private $objectManager;
     /** @var ObjectRepository|\PHPUnit_Framework_MockObject_MockObject */
     private $repository;
-
     /** @var DefinitionManager */
     private $subject;
 
@@ -26,7 +26,7 @@ class DefinitionManagerTest extends \PHPUnit_Framework_TestCase {
     {
         $this->class         = 'Abc\Bundle\FileDistributionBundle\Entity\Definition';
         $this->classMetaData = $this->getMock('Doctrine\Common\Persistence\Mapping\ClassMetadata');
-        $this->objectManager = $this->getMock('Doctrine\Common\Persistence\ObjectManager');
+        $this->objectManager = $this->getMockBuilder('Doctrine\ORM\EntityManager')->disableOriginalConstructor()->getMock();
         $this->repository    = $this->getMock('Doctrine\Common\Persistence\ObjectRepository');
 
         $this->objectManager->expects($this->any())
@@ -113,6 +113,6 @@ class DefinitionManagerTest extends \PHPUnit_Framework_TestCase {
             ->method('findOneBy')
             ->with($criteria);
 
-        $this->subject->findBy($criteria);
+        $this->subject->findOneBy($criteria);
     }
 }
