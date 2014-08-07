@@ -42,3 +42,6 @@ abc_file_distribution:
         default:
             type: LOCAL
             path: "%kernel.root_dir%/../../../../../build"
+            options:
+                create: true
+                mode:   0755

@@ -2,9 +2,11 @@
 
 namespace Abc\Bundle\FileDistributionBundle\DependencyInjection;
 
+use Abc\Filesystem\FilesystemType;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
 /**
  * This is the class that validates and merges configuration from your app/config files
@@ -13,6 +15,16 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
+    private static $valid_options = array(
+        FilesystemType::LOCAL => array('create', 'mode'),
+        FilesystemType::FTP => array('host', 'username', 'password', 'passive', 'create', 'mode', 'ssl')
+    );
+
+    private static $required_options = array(
+        FilesystemType::LOCAL => array(),
+        FilesystemType::FTP => array('host')
+    );
+
     /**
      * {@inheritDoc}
      */
@@ -22,6 +34,8 @@ class Configuration implements ConfigurationInterface
         $rootNode    = $treeBuilder->root('abc_file_distribution');
 
         $supportedDrivers = array('orm', 'custom');
+        $validOptions = static::$valid_options;
+        $requiredOptions = static::$required_options;
 
         $rootNode
             ->children()
@@ -42,10 +56,81 @@ class Configuration implements ConfigurationInterface
                     ->useAttributeAsKey('name')
                     ->prototype('array')
                         ->children()
-                            ->scalarNode('type')->isRequired()->end()
+                            ->enumNode('type')
+                                ->values(FilesystemType::toArray())
+                            ->end()
                             ->scalarNode('path')->isRequired()->end()
+                            ->arrayNode('options')
+
+                                ->addDefaultsIfNotSet()
+                                ->children()
+                                    ->booleanNode('create')->end()
+                                    ->scalarNode('mode')->end()
+                                    ->scalarNode('host')->end()
+                                    ->integerNode('port')->end()
+                                    ->scalarNode('username')->end()
+                                    ->scalarNode('password')->end()
+                                    ->booleanNode('passive')->end()
+                                    ->booleanNode('ssl')->end()
+                                ->end()
+                            ->end()
                         ->end()
                     ->end()
+                    ->validate()
+                    ->ifTrue(function($v) use ($requiredOptions, $validOptions)
+                        {
+                            foreach($v as $filesystem => $config)
+                            {
+                                $filesystemType = $config['type'];
+                                $definedOptions = $config['options'];
+                                foreach($requiredOptions[$filesystemType] as $name)
+                                {
+                                    if(!array_key_exists($name, $definedOptions))
+                                    {
+                                        return true;
+                                    }
+                                }
+
+                                foreach($definedOptions as $name => $value)
+                                {
+                                    if(!in_array($name, $validOptions[$filesystemType]))
+                                    {
+                                        return true;
+                                    }
+                                }
+
+                                return false;
+                            }
+                        })
+                    ->then(function($v) use ($requiredOptions, $validOptions)
+                        {
+                            foreach($v as $filesystem => $config)
+                            {
+                                $filesystemType = $config['type'];
+                                $definedOptions = $config['options'];
+                                foreach($requiredOptions[$filesystemType] as $name)
+                                {
+                                    if(!array_key_exists($name, $definedOptions))
+                                    {
+                                        $path =  'abc_file_distribution.filesystems.' . $filesystem . '.options';
+                                        $msg = sprintf('The child node "%s" at path "%s" must be configured.', $name, $path);
+
+                                        throw new InvalidConfigurationException($msg);
+                                    }
+                                }
+
+                                foreach($definedOptions as $name => $value)
+                                {
+                                    if(!in_array($name, $validOptions[$filesystemType]))
+                                    {
+                                        $path =  'abc_file_distribution.filesystems.' . $filesystem . '.options';
+                                        $msg = sprintf('The option "%s" at path %s is invalid (valid options: %s).', $name, $path, implode(', ', $validOptions[$filesystemType]));
+
+                                        throw new \InvalidArgumentException($msg);
+                                    }
+                                }
+                            }
+                        })
                 ->end()
             ->end();
 
