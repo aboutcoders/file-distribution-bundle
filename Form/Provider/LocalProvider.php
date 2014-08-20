@@ -23,7 +23,7 @@ class LocalProvider implements ProviderInterface
                 'mode',
                 new ModeType(),
                 array(
-                    'required' => false,
+                    'required' => true,
                     'empty_data' => '0775'
                 )
             );
