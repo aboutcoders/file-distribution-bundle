@@ -9,11 +9,11 @@ class StringToOctalTransformer implements DataTransformerInterface
 {
 
     /**
-     * Transforms a Boolean into a string.
+     * Transforms a String into a octal number.
      *
-     * @param bool $value Boolean value.
+     * @param string $value string value.
      *
-     * @return string String value.
+     * @return string Octal string representation of number
      *
      * @throws TransformationFailedException If the given value is not a Boolean.
      */
@@ -23,15 +23,15 @@ class StringToOctalTransformer implements DataTransformerInterface
             return null;
         }
 
-        return '0'.decoct($value);
+        return str_pad($value, 4, '0', STR_PAD_LEFT);
     }
 
     /**
-     * Transforms a string into a Boolean.
+     * Transforms a octal_string into a number.
      *
-     * @param string $value String value.
+     * @param string $value octal_string value.
      *
-     * @return bool Boolean value.
+     * @return number The decimal representation of octal_string
      *
      * @throws TransformationFailedException If the given value is not a string.
      */
@@ -45,6 +45,6 @@ class StringToOctalTransformer implements DataTransformerInterface
             throw new TransformationFailedException('Expected a string.');
         }
 
-        return octdec($value);
+        return $value;
     }
 }
