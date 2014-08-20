@@ -2,7 +2,6 @@
 
 namespace Abc\Bundle\FileDistributionBundle\Controller;
 
-use Abc\Bundle\FileDistributionBundle\Doctrine\DefinitionManager;
 use Abc\Bundle\FileDistributionBundle\Model\DefinitionManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
