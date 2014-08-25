@@ -46,13 +46,14 @@ class DefinitionManager extends BaseDefinitionManager
     /**
      * {@inheritDoc}
      */
-    public function getFilesystemsByType(FilesystemType $type)
+    public function getFilesystemsByType(FilesystemType $type = null)
     {
         $qb = $this->em->getRepository('\Abc\Bundle\FileDistributionBundle\Entity\Definition')
             ->createQueryBuilder('d');
-        $qb->where("d.type = ?1")
-            ->setParameter(1, $type);
-
+        if ($type !== null) {
+            $qb->where("d.type = ?1")
+                ->setParameter(1, $type);
+        }
         $items = $qb->getQuery()->getResult();
         $ret   = $this->buildArray($items);
 

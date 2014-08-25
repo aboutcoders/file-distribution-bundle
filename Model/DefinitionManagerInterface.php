@@ -64,10 +64,10 @@ interface DefinitionManagerInterface
     public function getFilesystemsWithPublicUrl();
 
     /**
-     * Returns the FTP filesystems as key value array
+     * Returns the filesystems by type as key value array
      *
-     * @param FilesystemType $type
+     * @param FilesystemType|null $type If type not specified returns all
      * @return array
      */
-    public function getFilesystemsByType(FilesystemType $type);
+    public function getFilesystemsByType(FilesystemType $type = null);
 }
