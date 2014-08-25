@@ -3,6 +3,7 @@
 namespace Abc\Bundle\FileDistributionBundle\Model;
 
 use Abc\Bundle\FileDistributionBundle\Model\DefinitionInterface;
+use Abc\Filesystem\FilesystemType;
 
 /**
  * @author Wojciech Ciolko <w.ciolko@gmail.com>
@@ -59,5 +60,14 @@ interface DefinitionManagerInterface
      *
      * @return array
      */
+
     public function getFilesystemsWithPublicUrl();
+
+    /**
+     * Returns the FTP filesystems as key value array
+     *
+     * @param FilesystemType $type
+     * @return array
+     */
+    public function getFilesystemsByType(FilesystemType $type);
 }
