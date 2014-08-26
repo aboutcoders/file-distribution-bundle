@@ -3,8 +3,6 @@
 
 namespace Abc\Bundle\FileDistributionBundle\Form\Provider;
 
-namespace Abc\Bundle\FileDistributionBundle\Form\Provider;
-
 use Abc\Bundle\FileDistributionBundle\Form\Type\ModeType;
 use Abc\Filesystem\FilesystemType;
 use Symfony\Component\Form\Form;
@@ -25,7 +23,8 @@ class LocalProvider implements ProviderInterface
                 'mode',
                 new ModeType(),
                 array(
-                    'required' => false,
+                    'required' => true,
+                    'empty_data' => '0775'
                 )
             );
     }

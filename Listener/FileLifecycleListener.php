@@ -3,7 +3,6 @@
 namespace Abc\Bundle\FileDistributionBundle\Listener;
 
 use Abc\Bundle\FileDistributionBundle\Entity\FileLifecycleInterface;
-use Abc\Bundle\FileDistributionBundle\Tests\Integration\FilesystemManagerIntegrationTest;
 use Abc\Filesystem\FilesystemInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Psr\Log\LoggerInterface;

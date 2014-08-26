@@ -29,6 +29,7 @@ class FieldValueChangeSubscriber implements EventSubscriberInterface
         return array(
             FormEvents::PRE_SET_DATA => 'preSetData',
             FormEvents::PRE_SUBMIT   => 'preBind',
+            FormEvents::POST_SUBMIT  => array('postSubmit', 900)
         );
     }
 
@@ -60,6 +61,14 @@ class FieldValueChangeSubscriber implements EventSubscriberInterface
         $form->remove('properties');
         // this time data is just a plain array as parsed from request
         $this->buildTypeSettingsForm($form, $data['type']);
+    }
+
+    /**
+     * @param FormEvent $event
+     */
+    public function postSubmit(FormEvent $event)
+    {
+        $event->stopPropagation();
     }
 
     /**
