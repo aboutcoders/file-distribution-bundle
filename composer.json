@@ -22,7 +22,7 @@
         "symfony/symfony": "~2.1",
         "gedmo/doctrine-extensions": "dev-master",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
-        "aboutcoders/file-distribution": "dev-master"
+        "aboutcoders/file-distribution": "~1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~4",
