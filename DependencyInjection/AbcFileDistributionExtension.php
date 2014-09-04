@@ -56,7 +56,7 @@ class AbcFileDistributionExtension extends Extension
                 $definition = new DefinitionDecorator('abc.file_distribution.definition.prototype');
                 $definition->addMethodCall('setType', array($filesystem['type']));
                 $definition->addMethodCall('setPath', array($filesystem['path']));
-                // TODO:  $job->replaceArgument(2, $options);
+                $definition->addMethodCall('setProperties', array($filesystem['options']));
 
                 $container->setDefinition($definitionId, $definition);
 
