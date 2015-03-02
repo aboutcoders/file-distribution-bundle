@@ -38,7 +38,6 @@ class DefinitionType extends AbstractType
                     'required' => true,
                 )
             );
-
     }
 
     /**

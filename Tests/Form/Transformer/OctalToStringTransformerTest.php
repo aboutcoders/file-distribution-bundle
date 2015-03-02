@@ -1,11 +1,13 @@
 <?php
+
 namespace Abc\Bundle\FileDistributionBundle\Tests\Form\Transformer;
 
-use Abc\Bundle\FileDistributionBundle\Form\Transformer\StringToOctalTransformer;
 
-class StringToOctalTransformerTest extends \PHPUnit_Framework_TestCase
+use Abc\Bundle\FileDistributionBundle\Form\Transformer\OctalToStringTransformer;
+
+class OctalToStringTransformerTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var StringToOctalTransformer */
+    /** @var OctalToStringTransformer */
     protected $subject;
 
     /**
@@ -13,12 +15,12 @@ class StringToOctalTransformerTest extends \PHPUnit_Framework_TestCase
      */
     public function setupSubject()
     {
-        $this->subject = new StringToOctalTransformer();
+        $this->subject = new OctalToStringTransformer();
     }
 
     public function testTransformWithValidValue()
     {
-        $value  = '775';
+        $value  = 0775;
         $result = $this->subject->transform($value);
         $this->assertEquals('0775', $result);
     }
@@ -34,14 +36,16 @@ class StringToOctalTransformerTest extends \PHPUnit_Framework_TestCase
     {
         $value  = '0775';
         $result = $this->subject->reverseTransform($value);
-        $this->assertEquals('775', $result);
+        $this->assertEquals(0775, $result);
     }
 
-
-    public function testReverseTransformWithNullValue()
+    /**
+     * @param $value
+     * @dataProvider getReversTransformNullValues
+     */
+    public function testReverseTransformReturnsNull($value)
     {
-        $result = $this->subject->reverseTransform(null);
-        $this->assertNull($result);
+        $this->assertNull($this->subject->reverseTransform($value));
     }
 
     /**
@@ -53,5 +57,12 @@ class StringToOctalTransformerTest extends \PHPUnit_Framework_TestCase
         $this->subject->reverseTransform(123);
     }
 
+
+    public function getReversTransformNullValues()
+    {
+        return array(
+            array(null),
+            array('')
+        );
+    }
 }
- 
