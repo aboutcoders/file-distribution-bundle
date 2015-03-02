@@ -4,11 +4,19 @@
     "description": "File distribution Symfony2 bundle",
     "keywords": ["file", "bundle", "distribution"],
     "homepage": "http://aboutcoders.com",
-    "license": "AboutCoders",
+    "license": "MIT",
     "authors": [
         {
             "name": "Wojciech Ciolko",
             "email": "w.ciolko@gmail.com"
+        },
+        {
+            "name": "Hannes Schulz",
+            "email": "schulz@daten-bahn.de"
+        },
+        {
+            "name": "AboutCoders.com",
+            "homepage": "http://aboutcoders.com/"
         }
     ],
     "repositories": [
