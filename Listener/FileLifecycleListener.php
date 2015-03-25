@@ -23,7 +23,7 @@ class FileLifecycleListener
     protected $logger;
 
     /**
-     * @param FilesystemInterface           $filesystem
+     * @param FilesystemInterface  $filesystem
      * @param LoggerInterface|null $logger
      */
     function __construct(FilesystemInterface $filesystem, LoggerInterface $logger = null)
@@ -81,26 +81,18 @@ class FileLifecycleListener
     {
         $entity = $args->getEntity();
 
-        if($entity instanceof FileLifecycleInterface)
-        {
-            if($entity->getPath() == null)
-            {
+        if ($entity instanceof FileLifecycleInterface) {
+            if ($entity->getPath() == null) {
                 return;
             }
 
-            if($this->filesystem->exists($entity->getPath()))
-            {
-                try
-                {
+            if ($this->filesystem->exists($entity->getPath())) {
+                try {
                     $this->filesystem->remove($entity->getPath());
-                }
-                catch(\Exception $e)
-                {
+                } catch (\Exception $e) {
                     $this->logger->error('Failed to delete file {path} from filesystem {filesystem} with exception {exception}', array('path' => $entity->getPath(), 'filesystem' => $this->filesystem, 'exception' => $e));
                 }
-            }
-            else
-            {
+            } else {
                 $this->logger->error(
                     'Could not delete file {path} because it does not exist on filesystem {filesystem}',
                     array('path' => $entity->getPath(), 'filesystem' => $this->filesystem)
@@ -116,8 +108,7 @@ class FileLifecycleListener
     {
         $entity = $args->getEntity();
 
-        if($entity instanceof FileLifecycleInterface)
-        {
+        if ($entity instanceof FileLifecycleInterface) {
             $entity->setFilesystemDefinition($this->filesystem->getDefinition());
         }
     }
@@ -131,33 +122,26 @@ class FileLifecycleListener
     {
         $entity = $args->getEntity();
 
-        if($entity instanceof FileLifecycleInterface && null !== $entity->getFile())
-        {
-            if($entity->getPreviousPath() != null && $this->filesystem->has($entity->getPreviousPath()))
-            {
+        if ($entity instanceof FileLifecycleInterface && null !== $entity->getFile()) {
+            if ($entity->getPreviousPath() != null && $this->filesystem->has($entity->getPreviousPath())) {
                 $this->filesystem->delete($entity->getPreviousPath());
             }
 
             $tmpFilename = sha1(uniqid(mt_rand(), true));
-            $tmpDir = $this->stripTrailingSlash(sys_get_temp_dir());
-            $tmpPath = $tmpDir. '/' . $tmpFilename;
+            $tmpDir      = $this->stripTrailingSlash(sys_get_temp_dir());
+            $tmpPath     = $tmpDir . '/' . $tmpFilename;
 
             $entity->getFile()->move($tmpDir, $tmpFilename);
 
-            try
-            {
+            try {
                 $this->filesystem->upload($tmpPath, $entity->getPath());
 
                 $this->getLocalFilesystem()->remove($tmpPath);
-            }
-            catch(IOException $e)
-            {
+            } catch (IOException $e) {
                 $this->logger->error('Failed to delete file {path}', array('path' => $tmpPath, 'class' => get_class($this)));
 
                 throw $e;
-            }
-            catch(\Exception $e)
-            {
+            } catch (\Exception $e) {
                 $this->logger->error('Failed to upload file {file}', array('file' => $entity->getFile(), 'class' => get_class($this)));
 
                 $this->getLocalFilesystem()->remove($tmpPath);
@@ -176,10 +160,9 @@ class FileLifecycleListener
     {
         $entity = $args->getEntity();
 
-        if($entity instanceof FileLifecycleInterface && null !== $entity->getFile())
-        {
+        if ($entity instanceof FileLifecycleInterface && null !== $entity->getFile()) {
             $filename = sha1(uniqid(mt_rand(), true));
-            $entity->setPath($entity->getRemoteDir() . '/' . $filename . '.' . $entity->getFile()->guessExtension());
+            $entity->setPath($entity->getRemoteDir() . '/' . $filename . '.' . $entity->getFile()->getClientOriginalExtension());
             $entity->setSize($entity->getFile()->getFileInfo()->getSize());
         }
     }
@@ -191,8 +174,7 @@ class FileLifecycleListener
     private function stripTrailingSlash($path)
     {
         $lastStr = substr($path, strlen($path) - 1);
-        if($lastStr == '/' || $lastStr == '\\')
-        {
+        if ($lastStr == '/' || $lastStr == '\\') {
             return substr($path, 0, strlen($path) - 1);
         }
 
