@@ -4,7 +4,7 @@ services:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
         calls:
-            - [ setAnnotationReader, [ @annotation_reader ] ]
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]
 
     filesystem_tag_test:
         class: Abc\Bundle\FileDistributionBundle\Tests\Fixtures\FilesystemTagTest
