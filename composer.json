@@ -8,11 +8,11 @@
     "authors": [
         {
             "name": "Wojciech Ciolko",
-            "email": "w.ciolko@gmail.com"
+            "email": "wojciech.ciolko@aboutcoders.com"
         },
         {
             "name": "Hannes Schulz",
-            "email": "schulz@daten-bahn.de"
+            "email": "hannes.schulz@aboutcoders.com"
         },
         {
             "name": "AboutCoders.com",
@@ -23,7 +23,7 @@
     ],
     "require": {
         "php": ">=5.3.2",
-        "symfony/symfony": "~2.1",
+        "symfony/symfony": "~2.6|~3.0",
         "gedmo/doctrine-extensions": "dev-master",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "aboutcoders/file-distribution": "~1.0"

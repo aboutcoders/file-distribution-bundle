@@ -54,7 +54,10 @@ class FilesystemManagerIntegrationTest extends KernelTestCase
 
         $manager->update($filesystem);
 
-        $this->assertLessThanOrEqual(new \DateTime(), $filesystem->getCreatedAt());
+        //Just in case save operation is delayed
+        $now = new \DateTime();
+        $now->add(new \DateInterval('P5M'));
+        $this->assertLessThanOrEqual($now, $filesystem->getCreatedAt());
     }
 
     /**
