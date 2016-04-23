@@ -60,11 +60,6 @@ abc_file_distribution:
                 create: true
 ```                
 
-Only one configuration value is required to use the bundle:
-
-* The type of datastore you are using (``orm``, ``mongodb``, ``couchdb`` or ``propel``).
-
-
 __Update the database schema__
 
 Finally you need to update your database schema in order to create the required tables.
