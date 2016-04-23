@@ -75,7 +75,6 @@ php app/console doctrine:schema:update --force
 
 ## Further Documentation
 
-- [Scheduled jobs](./docs/scheduled-jobs.md)
 - [Configuration Reference](./docs/configuration-reference.md)
 
 ## ToDo:
