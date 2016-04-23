@@ -3,44 +3,87 @@ AbcFileDistributionBundle
 
 The AbcFileDistributionBundle provides a database-backed file management system for Symfony.
 It gives you a flexible framework for storing and transferring files between various locations (Local, FTP, CDN).
+It is build on top of AbcFileDistribution library.
 
-Features include:
+Build Status: [![Build Status](https://travis-ci.org/aboutcoders/file-distribution-bundle.svg?branch=master)](https://travis-ci.org/aboutcoders/file-distribution-bundle)
+
+## Overview
+
+This bundle provides the following features:
 
 - Filesystem definitions can be stored via Doctrine ORM, MongoDB/CouchDB ODM or Propel
 - Filesystem definitions can be defined in configuration 
 - Unit tested
 
+We appreciate if you decide to use this bundle and we appreciate your feedback, suggestions or contributions.
 
-Documentation
--------------
+## Installation
 
-The source of the documentation is stored in the `Resources/doc/` folder in this bundle.
+Add the AbcJobBundle to your `composer.json` file
+
+```json
+{
+    "require": {
+        "aboutcoders/file-distribution-bundle": "~1.1"
+    }
+}
+```
+
+Then include the bundle in the AppKernel.php class
+
+```php
+public function registerBundles()
+{
+    $bundles = array(
+        // ...
+        new Abc\Bundle\FileDistributionBundle\AbcFileDistributionBundle(),
+    );
+
+    return $bundles;
+}
+```
+
+## Configuration
+
+__Configure doctrine orm__
+
+At the current point only doctrine is supported as ORM. However by changing the configuration you can use a different persistence layer.
+
+```yaml
+abc_file_distribution:
+    db_driver: orm
+    filesystems:
+        assets:
+            type: LOCAL
+            path: "%data_dir%/assets"
+            options:
+                create: true
+```                
+
+Only one configuration value is required to use the bundle:
+
+* The type of datastore you are using (``orm``, ``mongodb``, ``couchdb`` or ``propel``).
 
 
-Installation
-------------
+__Update the database schema__
 
-All the installation instructions are located in the documentation.
+Finally you need to update your database schema in order to create the required tables.
 
-License
--------
+```bash
+php app/console doctrine:schema:update --force
+```
 
-This bundle is under the MIT license. See the complete license in the bundle:
+## Further Documentation
 
-    Resources/meta/LICENSE
+- [Scheduled jobs](./docs/scheduled-jobs.md)
+- [Configuration Reference](./docs/configuration-reference.md)
+
+## ToDo:
+
+- Update docs
+
 
 About
 -----
 
 AbcFileDistributionBundle is a [AboutCoders](https://aboutcoders.com) initiative.
-
-Reporting an issue or a feature request
----------------------------------------
-
-Issues and feature requests are tracked in the [BitBucket issue tracker](https://bitbucket.org/wciolko/file-distribution-bundle/issues).
-
-When reporting a bug, it may be a good idea to reproduce it in a basic project
-built using the [Symfony Standard Edition](https://github.com/symfony/symfony-standard)
-to allow developers of the bundle to reproduce the issue by simply cloning it
-and following some steps.
-
