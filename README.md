@@ -19,7 +19,7 @@ We appreciate if you decide to use this bundle and we appreciate your feedback, 
 
 ## Installation
 
-Add the AbcJobBundle to your `composer.json` file
+Add the AbcFileDistributionBundle to your `composer.json` file
 
 ```json
 {
