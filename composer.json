@@ -2,7 +2,7 @@
     "name": "aboutcoders/file-distribution-bundle",
     "type": "symfony-bundle",
     "description": "File distribution Symfony2 bundle",
-    "keywords": ["file", "bundle", "distribution"],
+    "keywords": ["file", "bundle", "distribution", "abstraction"],
     "homepage": "http://aboutcoders.com",
     "license": "MIT",
     "authors": [
@@ -19,13 +19,11 @@
             "homepage": "http://aboutcoders.com/"
         }
     ],
-    "repositories": [
-    ],
     "require": {
         "php": ">=5.3.2",
         "symfony/symfony": "~2.6|~3.0",
-        "gedmo/doctrine-extensions": "dev-master",
-        "doctrine/doctrine-fixtures-bundle": "dev-master",
+        "gedmo/doctrine-extensions": "~2.0",
+        "doctrine/doctrine-fixtures-bundle": "~2.0",
         "aboutcoders/file-distribution": "~1.0"
     },
     "require-dev": {
@@ -36,7 +34,5 @@
     },
     "autoload": {
         "psr-4": { "Abc\\Bundle\\FileDistributionBundle\\": "" }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
 }
